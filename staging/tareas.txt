@@ -1,0 +1,9 @@
+verificar normas de codificacion
+python ./cpplint.py --extensions=h,hpp,c,cpp --filter=`cat filter_options` `find -regextype posix-egrep -regex '.*\.(h|hpp|c|cpp)'`
+
+compilacion
+make -f Makefile
+
+corrida con valgrind
+sh execute_valgrind_and_verify_result_code.sh
+
