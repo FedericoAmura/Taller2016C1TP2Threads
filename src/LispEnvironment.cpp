@@ -6,10 +6,22 @@
  */
 
 #include "LispEnvironment.h"
+#include "InterpreteLISP.h"
+
+//std::list<std::string> LispEnvironment::print(std::list<std::string> args) {
+//	for(std::list<std::string>::iterator list_iter = args.begin();
+//	    list_iter != args.end(); list_iter++){
+//	    std::cout << *list_iter;
+//	}
+//	std::cout << "\n";
+//	std::list<std::string> retorno;
+//	return retorno;
+//}
 
 LispEnvironment::LispEnvironment() {
 	i = 0;
 	j = 0;
+	//environmentFunctions["print"] = &LispEnvironment::print;
 }
 
 int LispEnvironment::enterLine(std::string linea) {
@@ -19,7 +31,8 @@ int LispEnvironment::enterLine(std::string linea) {
 	}
 
 	lines.push_back(lineaLisp);
-	lines[i]->start();
+	//lines[i]->start();
+	lines[i]->run();
 	if(lines[i]->esSync()) {
 		while (j<=i) {
 			lines[j]->join();

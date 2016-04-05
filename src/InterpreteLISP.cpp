@@ -11,13 +11,52 @@ InterpreteLISP::InterpreteLISP(std::string linea) : linea(linea){
 }
 
 void InterpreteLISP::run() {
-	//TODO este es el punto donde se empieza a procesar una linea
-	std::cout << linea << "\n";
+	InterpreteLISP::resolveCommand(linea);
 }
 
-int InterpreteLISP::resolveCommand(std::string comando){
-	//este es el que tiene que procesar la linea en cuestion y poder ser recursivo
-	std::cout << linea << "\n";
+std::list<std::string> InterpreteLISP::resolveCommand(std::string comando){
+	std::list<std::string> lista;
+	std::string comandoLISP;
+	std::string *argumento = new std::string();
+	std::list<std::string> args;
+
+	std::string::iterator it=linea.begin();
+	it++;	//pasa salvarme del primer "("
+	for (; (*it!=' ') && (*it!=')'); ++it){
+		comandoLISP.append(1, *it);
+	}
+	int parentesisAbiertos = 1;
+	while (parentesisAbiertos != 0) {
+		if (*it==')') {
+			parentesisAbiertos--;
+		} else if (*it=='(') {
+			parentesisAbiertos++;
+		}
+		if (parentesisAbiertos == 1) {
+			//voy creando argumentos separando por espacio
+			if (*it == ' ') {
+				if (argumento->compare("") != 0) {
+					args.push_back(*argumento);
+					argumento = new std::string();
+				}
+			} else {
+				argumento->append(1, *it);
+			}
+		}
+		if (parentesisAbiertos > 1) {
+			argumento->append(1, *it);
+		}
+		++it;
+	}
+	if (argumento->compare("") != 0) {
+		args.push_back(*argumento);
+	}
+	std::cout << "El comando fue: " << comandoLISP << "\n";
+	std::cout << "y sus parametros:\n";
+	for (std::list<std::string>::iterator it=args.begin(); it != args.end(); ++it){
+	    std::cout << '-' << *it << "\n";
+	}
+	return lista;
 }
 
 bool InterpreteLISP::esSync() {

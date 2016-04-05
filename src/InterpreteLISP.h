@@ -9,8 +9,9 @@
 #define INTERPRETELISP_H_
 
 #include <iostream>
-#include "Thread.h"
 #include <string>
+#include <list>
+#include "Thread.h"
 
 class InterpreteLISP: public Thread {
 private:
@@ -29,7 +30,7 @@ public:
 
 private:
 	int verificarSintaxis();
-	int resolveCommand(std::string comando);
+	std::list<std::string> resolveCommand(std::string comando);
 
 };
 
