@@ -30,7 +30,7 @@ public:
 
 private:
 	int verificarSintaxis();
-	std::list<std::string> resolveCommand(std::string comando);
+	std::list<std::string> parseCommand(std::string comando);
 
 };
 

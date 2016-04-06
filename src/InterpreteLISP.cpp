@@ -11,10 +11,10 @@ InterpreteLISP::InterpreteLISP(std::string linea) : linea(linea){
 }
 
 void InterpreteLISP::run() {
-	InterpreteLISP::resolveCommand(linea);
+	InterpreteLISP::parseCommand(linea);
 }
 
-std::list<std::string> InterpreteLISP::resolveCommand(std::string comando){
+std::list<std::string> InterpreteLISP::parseCommand(std::string comando){
 	std::list<std::string> lista;
 	std::string comandoLISP;
 	std::string *argumento = new std::string();
