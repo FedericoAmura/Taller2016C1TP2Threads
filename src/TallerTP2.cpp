@@ -8,7 +8,7 @@
 
 #include <iostream>
 
-#include "LISPEnvironment.h"
+#include "AmbienteLISP.h"
 
 #define PROGRAM_NO_ERROR 0
 #define PROGRAM_PARAMETER_ERROR 1
@@ -26,7 +26,7 @@ int main(int argc, char *argv[]) {
 	//declaro variables
 	int lineNumberError = 0;
 	string linea;
-	LISPEnvironment lisp;
+	AmbienteLISP lisp;
 
 	//leo cada linea y la proceso en lisp hasta EOF
 	while (getline(cin, linea)) {

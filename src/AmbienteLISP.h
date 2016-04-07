@@ -5,8 +5,8 @@
  *      Author: freddy
  */
 
-#ifndef LISPENVIRONMENT_H_
-#define LISPENVIRONMENT_H_
+#ifndef AMBIENTELISP_H_
+#define AMBIENTELISP_H_
 
 #include <iostream>
 #include <map>
@@ -19,7 +19,7 @@
 
 #define LINE_OK 0
 
-class LISPEnvironment {
+class AmbienteLISP {
 private:
 	std::map<std::string, void*> environmentVariables;
 	std::map<std::string, FuncionLISP*> environmentFunctions;
@@ -27,13 +27,13 @@ private:
 	int i,j;
 
 public:
-	LISPEnvironment();
+	AmbienteLISP();
 
 	int enterLine(std::string linea);
 
 //	std::list<std::string> print(std::list<std::string> args);
 
-	virtual ~LISPEnvironment();
+	virtual ~AmbienteLISP();
 };
 
-#endif /* LISPENVIRONMENT_H_ */
+#endif /* AMBIENTELISP_H_ */

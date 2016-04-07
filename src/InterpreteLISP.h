@@ -24,13 +24,14 @@ public:
 
 	bool esSync();
 
-	bool cumpleSintaxis();
+	bool lineaValida();
 
 	virtual ~InterpreteLISP();
 
 private:
 	int verificarSintaxis();
 	std::list<std::string> parseCommand(std::string comando);
+	std::list<std::string> procesarComandoLISP(std::list<std::string> comando);
 
 };
 

@@ -5,7 +5,7 @@
  *      Author: freddy
  */
 
-#include "LISPEnvironment.h"
+#include "AmbienteLISP.h"
 
 #include "InterpreteLISP.h"
 #include "FuncionLISP.h"
@@ -21,34 +21,36 @@ std::list<std::string> print(std::list<std::string> args) {
 	return retorno;
 }
 
-LISPEnvironment::LISPEnvironment() {
+AmbienteLISP::AmbienteLISP() {
 	i = 0;
 	j = 0;
 	FuncionLISP* funcionPrint = new FuncionNativaLISP(&print);
 	environmentFunctions["print"] = funcionPrint;
 }
 
-int LISPEnvironment::enterLine(std::string linea) {
+int AmbienteLISP::enterLine(std::string linea) {
 	InterpreteLISP* lineaLisp = new InterpreteLISP(linea);
-	if (!lineaLisp->cumpleSintaxis()) {
+	if (!lineaLisp->lineaValida()) {
+		delete lineaLisp;
 		return i+1;
 	}
 
 	lines.push_back(lineaLisp);
-	//lines[i]->start();
-	lines[i]->run();
 	if(lines[i]->esSync()) {
 		while (j<=i) {
 			lines[j]->join();
 			j++;
 		}
 		std::cout << "Espero a todos\n";
+	} else {
+		//lines[i]->start();
+		lines[i]->run(); //veamos si sin el start en los sync funciona igual, si no los corremos y que sync sea una funcion definida
 	}
 	i++;
 	return LINE_OK;
 }
 
-LISPEnvironment::~LISPEnvironment() {
+AmbienteLISP::~AmbienteLISP() {
 	for (int k = 0; k < i; k++) {
 		delete lines[i];
 	}

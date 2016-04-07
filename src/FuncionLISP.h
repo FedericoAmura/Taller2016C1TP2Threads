@@ -21,7 +21,7 @@ public:
 
 	virtual std::list<std::string> resolve(std::list<std::string> args);
 
-	virtual ~FuncionLISP() = 0;
+	virtual ~FuncionLISP();
 };
 
 #endif /* FUNCIONLISP_H_ */
