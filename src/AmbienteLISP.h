@@ -16,8 +16,11 @@
 #include "Thread.h"
 #include "InterpreteLISP.h"
 #include "FuncionLISP.h"
+#include "FuncionNativaLISP.h"
 
 #define LINE_OK 0
+
+class InterpreteLISP;
 
 class AmbienteLISP {
 private:
@@ -31,7 +34,9 @@ public:
 
 	int enterLine(std::string linea);
 
-//	std::list<std::string> print(std::list<std::string> args);
+	FuncionLISP* getFuncion(std::string funcion);
+
+	void setFuncion(std::string nombre, FuncionLISP* funcion);
 
 	virtual ~AmbienteLISP();
 };

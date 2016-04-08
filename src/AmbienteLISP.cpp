@@ -7,10 +7,6 @@
 
 #include "AmbienteLISP.h"
 
-#include "InterpreteLISP.h"
-#include "FuncionLISP.h"
-#include "FuncionNativaLISP.h"
-
 std::list<std::string> print(std::list<std::string> args) {
 	for(std::list<std::string>::iterator list_iter = args.begin();
 	    list_iter != args.end(); list_iter++){
@@ -29,7 +25,7 @@ AmbienteLISP::AmbienteLISP() {
 }
 
 int AmbienteLISP::enterLine(std::string linea) {
-	InterpreteLISP* lineaLisp = new InterpreteLISP(linea);
+	InterpreteLISP* lineaLisp = new InterpreteLISP(linea, this);
 	if (!lineaLisp->lineaValida()) {
 		delete lineaLisp;
 		return i+1;
@@ -48,6 +44,14 @@ int AmbienteLISP::enterLine(std::string linea) {
 	}
 	i++;
 	return LINE_OK;
+}
+
+FuncionLISP* AmbienteLISP::getFuncion(std::string funcion) {
+	return environmentFunctions[funcion];
+}
+
+void AmbienteLISP::setFuncion(std::string nombre, FuncionLISP* funcion) {
+	environmentFunctions[nombre] = funcion;
 }
 
 AmbienteLISP::~AmbienteLISP() {

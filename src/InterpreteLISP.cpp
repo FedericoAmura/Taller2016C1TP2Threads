@@ -6,21 +6,19 @@
  */
 
 #include "InterpreteLISP.h"
-#include "FuncionLISP.h"
 
-InterpreteLISP::InterpreteLISP(std::string linea) : linea(linea){
+InterpreteLISP::InterpreteLISP(std::string linea, AmbienteLISP *lisp) : linea(linea), lisp(lisp) {
 }
 
 void InterpreteLISP::run() {
 	std::list<std::string> lista;
 	std::string comando;
 
-	lista = InterpreteLISP::parseCommand(linea);
-	InterpreteLISP::procesarComandoLISP(lista);
+	lista = parseCommand(linea);
+	procesarComandoLISP(lista);
 }
 
 std::list<std::string> InterpreteLISP::parseCommand(std::string comando){
-	std::string comandoLISP;
 	std::string *argumento = new std::string();
 	std::list<std::string> comandoParseado;
 
@@ -57,19 +55,22 @@ std::list<std::string> InterpreteLISP::parseCommand(std::string comando){
 	if (argumento->compare("") != 0) {
 		comandoParseado.push_back(*argumento);
 	}
-	std::cout << "El comando fue: " << comandoLISP << "\n";
-	std::cout << "y sus parametros:\n";
-	for (std::list<std::string>::iterator it=comandoParseado.begin(); it != comandoParseado.end(); ++it){
-		std::cout << '-' << *it << "\n";
-	}
 	return comandoParseado;
 }
 
 std::list<std::string> InterpreteLISP::procesarComandoLISP(std::list<std::string> comando){
 	std::string palabra;
+	std::cout << "Vamos a procesar\n";
 	for (std::list<std::string>::iterator it=comando.begin(); it != comando.end(); ++it){
 		std::cout << '-' << *it << "\n";
 	}
+
+	std::list<std::string> retorno;
+	std::string nombreFuncion;
+	nombreFuncion = comando.front();
+	comando.pop_front();
+	FuncionLISP* funcion = lisp->getFuncion(nombreFuncion);
+	retorno = funcion->resolver(comando);
 	return comando;
 }
 

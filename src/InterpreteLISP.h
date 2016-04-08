@@ -12,13 +12,18 @@
 #include <string>
 #include <list>
 #include "Thread.h"
+#include "AmbienteLISP.h"
+#include "FuncionLISP.h"
+
+class AmbienteLISP;	//por referencias circulares
 
 class InterpreteLISP: public Thread {
 private:
 	std::string linea;
+	AmbienteLISP *lisp;
 
 public:
-	InterpreteLISP(std::string linea);
+	InterpreteLISP(std::string linea, AmbienteLISP *lisp);
 
 	virtual void run();
 

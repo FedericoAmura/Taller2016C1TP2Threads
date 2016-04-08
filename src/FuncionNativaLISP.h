@@ -20,7 +20,7 @@ private:
 public:
 	FuncionNativaLISP(funcionLISP_t codigo);
 
-	std::list<std::string> resolve(std::list<std::string> args);
+	std::list<std::string> resolver(std::list<std::string> args);
 
 	virtual ~FuncionNativaLISP();
 };
