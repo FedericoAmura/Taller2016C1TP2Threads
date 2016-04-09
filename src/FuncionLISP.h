@@ -11,7 +11,10 @@
 #include <string>
 #include <list>
 
+class InterpreteLISP;	//referencias circulares
+
 #include "codigosFuncionesLISP.h"
+#include "InterpreteLISP.h"
 
 class FuncionLISP {
 protected:
@@ -19,7 +22,7 @@ protected:
 public:
 	FuncionLISP();
 
-	virtual std::list<std::string> resolver(std::list<std::string> args);
+	virtual std::list<std::string> resolver(std::list<std::string> args, InterpreteLISP* interprete);
 
 	virtual ~FuncionLISP();
 };

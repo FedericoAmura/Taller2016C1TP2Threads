@@ -7,12 +7,17 @@
 
 #include "AmbienteLISP.h"
 
-std::list<std::string> print(std::list<std::string> args) {
-	for(std::list<std::string>::iterator list_iter = args.begin();
-	    list_iter != args.end(); list_iter++){
-	    std::cout << *list_iter;
+std::list<std::string> print(std::list<std::string> args, InterpreteLISP* interprete) {
+	for(std::list<std::string>::iterator args_iter = args.begin();
+	    args_iter != args.end(); args_iter++){
+		std::list<std::string> subArgs = interprete->procesarComandoLISP(*args_iter);
+		for (std::list<std::string>::iterator subArgs_iter = subArgs.begin();
+				subArgs_iter != subArgs.end(); subArgs_iter++) {
+			std::cout << *subArgs_iter << " ";
+		}
+		//std::cout << *args_iter << " ";
 	}
-	std::cout << "\n";
+	std::cout << std::endl;
 	std::list<std::string> retorno;
 	return retorno;
 }
@@ -21,11 +26,14 @@ AmbienteLISP::AmbienteLISP() {
 	i = 0;
 	j = 0;
 	FuncionLISP* funcionPrint = new FuncionNativaLISP(&print);
-	environmentFunctions["print"] = funcionPrint;
+	funcionesAmbiente["print"] = funcionPrint;
+	std::string *a = new std::string();
+	*a = "5";
+	variablesAmbiente["a"] = a;
 }
 
 int AmbienteLISP::enterLine(std::string linea) {
-	InterpreteLISP* lineaLisp = new InterpreteLISP(linea, this);
+	InterpreteLISP* lineaLisp = new InterpreteLISP(linea, &variablesAmbiente, &funcionesAmbiente);
 	if (!lineaLisp->lineaValida()) {
 		delete lineaLisp;
 		return i+1;
@@ -44,14 +52,6 @@ int AmbienteLISP::enterLine(std::string linea) {
 	}
 	i++;
 	return LINE_OK;
-}
-
-FuncionLISP* AmbienteLISP::getFuncion(std::string funcion) {
-	return environmentFunctions[funcion];
-}
-
-void AmbienteLISP::setFuncion(std::string nombre, FuncionLISP* funcion) {
-	environmentFunctions[nombre] = funcion;
 }
 
 AmbienteLISP::~AmbienteLISP() {

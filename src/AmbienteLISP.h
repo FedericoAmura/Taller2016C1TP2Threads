@@ -8,6 +8,8 @@
 #ifndef AMBIENTELISP_H_
 #define AMBIENTELISP_H_
 
+class FuncionLISP;	//referencias circulares
+
 #include <iostream>
 #include <map>
 #include <vector>
@@ -24,8 +26,8 @@ class InterpreteLISP;
 
 class AmbienteLISP {
 private:
-	std::map<std::string, void*> environmentVariables;
-	std::map<std::string, FuncionLISP*> environmentFunctions;
+	std::map<std::string, std::string*> variablesAmbiente;
+	std::map<std::string, FuncionLISP*> funcionesAmbiente;
 	std::vector<InterpreteLISP*> lines;
 	int i,j;
 
@@ -33,10 +35,6 @@ public:
 	AmbienteLISP();
 
 	int enterLine(std::string linea);
-
-	FuncionLISP* getFuncion(std::string funcion);
-
-	void setFuncion(std::string nombre, FuncionLISP* funcion);
 
 	virtual ~AmbienteLISP();
 };

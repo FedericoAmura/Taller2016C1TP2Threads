@@ -7,22 +7,18 @@
 
 #include "InterpreteLISP.h"
 
-InterpreteLISP::InterpreteLISP(std::string linea, AmbienteLISP *lisp) : linea(linea), lisp(lisp) {
+InterpreteLISP::InterpreteLISP(std::string linea, std::map<std::string, std::string*> *variablesAmbiente, std::map<std::string, FuncionLISP*> *funcionesAmbiente) : linea(linea), variablesAmbiente(variablesAmbiente), funcionesAmbiente(funcionesAmbiente) {
 }
 
 void InterpreteLISP::run() {
-	std::list<std::string> lista;
-	std::string comando;
-
-	lista = parseCommand(linea);
-	procesarComandoLISP(lista);
+	procesarComandoLISP(linea);
 }
 
 std::list<std::string> InterpreteLISP::parseCommand(std::string comando){
 	std::string *argumento = new std::string();
 	std::list<std::string> comandoParseado;
 
-	std::string::iterator it=linea.begin();
+	std::string::iterator it=comando.begin();
 	it++;	//para salvarme del primer "("
 	for (; (*it!=' ') && (*it!=')'); ++it){
 		argumento->append(1, *it);
@@ -58,19 +54,28 @@ std::list<std::string> InterpreteLISP::parseCommand(std::string comando){
 	return comandoParseado;
 }
 
-std::list<std::string> InterpreteLISP::procesarComandoLISP(std::list<std::string> comando){
+std::list<std::string> InterpreteLISP::procesarComandoLISP(std::string input){
+	std::list<std::string> comando;
 	std::string palabra;
-	std::cout << "Vamos a procesar\n";
-	for (std::list<std::string>::iterator it=comando.begin(); it != comando.end(); ++it){
-		std::cout << '-' << *it << "\n";
-	}
+	if (input.at(0) =='(') {
+		comando = parseCommand(input);
+		/*std::cout << "Vamos a procesar\n";
+		for (std::list<std::string>::iterator it=comando.begin(); it != comando.end(); ++it){
+			std::cout << '-' << *it << "\n";
+		}*/
 
-	std::list<std::string> retorno;
-	std::string nombreFuncion;
-	nombreFuncion = comando.front();
-	comando.pop_front();
-	FuncionLISP* funcion = lisp->getFuncion(nombreFuncion);
-	retorno = funcion->resolver(comando);
+		std::string nombreFuncion;
+		nombreFuncion = comando.front();
+		comando.pop_front();
+		FuncionLISP* funcion = (*funcionesAmbiente)[nombreFuncion];
+		comando = funcion->resolver(comando, this);
+	} else {
+		if ((*variablesAmbiente)[input] != NULL) {
+			comando.push_back(*(*variablesAmbiente)[input]);
+		} else {
+			comando.push_back(input);
+		}
+	}
 	return comando;
 }
 

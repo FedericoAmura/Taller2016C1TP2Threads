@@ -10,8 +10,9 @@
 
 #include "FuncionLISP.h"
 #include "codigosFuncionesLISP.h"
+#include "InterpreteLISP.h"
 
-typedef std::list<std::string> (*funcionLISP_t)(std::list<std::string>);
+typedef std::list<std::string> (*funcionLISP_t)(std::list<std::string>, InterpreteLISP* interprete);
 
 class FuncionNativaLISP : public FuncionLISP {
 private:
@@ -20,7 +21,7 @@ private:
 public:
 	FuncionNativaLISP(funcionLISP_t codigo);
 
-	std::list<std::string> resolver(std::list<std::string> args);
+	std::list<std::string> resolver(std::list<std::string> args, InterpreteLISP* interprete);
 
 	virtual ~FuncionNativaLISP();
 };

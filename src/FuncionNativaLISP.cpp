@@ -11,9 +11,9 @@ FuncionNativaLISP::FuncionNativaLISP(funcionLISP_t codigo) : codigoFuncion(codig
 	tipo = CODIGO_FUNCION_NATIVA;
 }
 
-std::list<std::string> FuncionNativaLISP::resolver(std::list<std::string> args) {
+std::list<std::string> FuncionNativaLISP::resolver(std::list<std::string> args, InterpreteLISP* interprete) {
 	std::list<std::string> lista;
-	lista = codigoFuncion(args);
+	lista = codigoFuncion(args, interprete);
 	return lista;
 }
 

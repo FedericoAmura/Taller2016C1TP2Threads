@@ -13,7 +13,7 @@
 FuncionLISP::FuncionLISP() : tipo(0){
 }
 
-	std::list<std::string> FuncionLISP::resolver(std::list<std::string> args) {
+std::list<std::string> FuncionLISP::resolver(std::list<std::string> args, InterpreteLISP* interprete) {
 	std::list<std::string> lista;
 	throw -1;
 	return lista;
