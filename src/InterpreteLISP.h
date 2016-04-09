@@ -20,15 +20,19 @@ class FuncionLISP;	//referencias circular
 class InterpreteLISP: public Thread {
 private:
 	std::string linea;
-	std::map<std::string, std::string*> *variablesAmbiente;
+	std::map<std::string, std::list<std::string>*> *variablesAmbiente;
 	std::map<std::string, FuncionLISP*> *funcionesAmbiente;
 
 public:
-	InterpreteLISP(std::string linea, std::map<std::string, std::string*> *variablesAmbiente, std::map<std::string, FuncionLISP*> *funcionesAmbiente);
+	InterpreteLISP(std::string linea, std::map<std::string, std::list<std::string>*> *variablesAmbiente, std::map<std::string, FuncionLISP*> *funcionesAmbiente);
 
 	virtual void run();
 
 	std::list<std::string> procesarComandoLISP(std::string linea);
+
+	void agregarVariable(std::string nombre, std::list<std::string> *valor);
+
+	void agregarFuncion(std::string nombre, FuncionLISP *valor);
 
 	bool esSync();
 

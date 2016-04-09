@@ -7,7 +7,7 @@
 
 #include "InterpreteLISP.h"
 
-InterpreteLISP::InterpreteLISP(std::string linea, std::map<std::string, std::string*> *variablesAmbiente, std::map<std::string, FuncionLISP*> *funcionesAmbiente) : linea(linea), variablesAmbiente(variablesAmbiente), funcionesAmbiente(funcionesAmbiente) {
+InterpreteLISP::InterpreteLISP(std::string linea, std::map<std::string, std::list<std::string>*> *variablesAmbiente, std::map<std::string, FuncionLISP*> *funcionesAmbiente) : linea(linea), variablesAmbiente(variablesAmbiente), funcionesAmbiente(funcionesAmbiente) {
 }
 
 void InterpreteLISP::run() {
@@ -59,10 +59,6 @@ std::list<std::string> InterpreteLISP::procesarComandoLISP(std::string input){
 	std::string palabra;
 	if (input.at(0) =='(') {
 		comando = parseCommand(input);
-		/*std::cout << "Vamos a procesar\n";
-		for (std::list<std::string>::iterator it=comando.begin(); it != comando.end(); ++it){
-			std::cout << '-' << *it << "\n";
-		}*/
 
 		std::string nombreFuncion;
 		nombreFuncion = comando.front();
@@ -71,12 +67,20 @@ std::list<std::string> InterpreteLISP::procesarComandoLISP(std::string input){
 		comando = funcion->resolver(comando, this);
 	} else {
 		if ((*variablesAmbiente)[input] != NULL) {
-			comando.push_back(*(*variablesAmbiente)[input]);
+			return *(*variablesAmbiente)[input];
 		} else {
 			comando.push_back(input);
 		}
 	}
 	return comando;
+}
+
+void InterpreteLISP::agregarVariable(std::string nombre, std::list<std::string> *valor) {
+	(*variablesAmbiente)[nombre] = valor;
+}
+
+void InterpreteLISP::agregarFuncion(std::string nombre, FuncionLISP *valor) {
+	(*funcionesAmbiente)[nombre] = valor;
 }
 
 bool InterpreteLISP::esSync() {

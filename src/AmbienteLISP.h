@@ -15,10 +15,12 @@ class FuncionLISP;	//referencias circulares
 #include <vector>
 #include <string>
 #include <list>
+#include <cstddef>
 #include "Thread.h"
 #include "InterpreteLISP.h"
 #include "FuncionLISP.h"
 #include "FuncionNativaLISP.h"
+#include "FuncionUsuarioLISP.h"
 
 #define LINE_OK 0
 
@@ -26,7 +28,7 @@ class InterpreteLISP;
 
 class AmbienteLISP {
 private:
-	std::map<std::string, std::string*> variablesAmbiente;
+	std::map<std::string, std::list<std::string>*> variablesAmbiente;
 	std::map<std::string, FuncionLISP*> funcionesAmbiente;
 	std::vector<InterpreteLISP*> lines;
 	int i,j;
