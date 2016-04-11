@@ -15,7 +15,7 @@ private:
 	Mutex &m;
 
 public:
-	Lock(Mutex &m);
+	explicit Lock(Mutex &m);
 
 	~Lock();
 

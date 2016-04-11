@@ -16,21 +16,24 @@ class FuncionLISP;	//referencias circular
 #include <map>
 #include "Thread.h"
 #include "FuncionLISP.h"
+#include "VariableLISP.h"
 
 class InterpreteLISP: public Thread {
 private:
 	std::string linea;
-	std::map<std::string, std::list<std::string>*> *variablesAmbiente;
+	std::map<std::string, VariableLISP*> *variablesAmbiente;
 	std::map<std::string, FuncionLISP*> *funcionesAmbiente;
 
 public:
-	InterpreteLISP(std::string linea, std::map<std::string, std::list<std::string>*> *variablesAmbiente, std::map<std::string, FuncionLISP*> *funcionesAmbiente);
+	InterpreteLISP(std::string linea,
+			std::map<std::string, VariableLISP*> *variablesAmbiente,
+			std::map<std::string, FuncionLISP*> *funcionesAmbiente);
 
 	virtual void run();
 
 	std::list<std::string> procesarComandoLISP(std::string linea);
 
-	void agregarVariable(std::string nombre, std::list<std::string> *valor);
+	void agregarVariable(std::string nombre, VariableLISP *valor);
 
 	void agregarFuncion(std::string nombre, FuncionLISP *valor);
 
@@ -43,7 +46,6 @@ public:
 private:
 	int verificarSintaxis();
 	std::list<std::string> parseCommand(std::string comando);
-
 };
 
 #endif /* INTERPRETELISP_H_ */

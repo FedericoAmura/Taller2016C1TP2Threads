@@ -13,15 +13,17 @@
 #include "InterpreteLISP.h"
 
 #include <string>
+#include <list>
 
 class FuncionUsuarioLISP : public FuncionLISP {
 private:
 	std::string *codigo;
 
 public:
-	FuncionUsuarioLISP(std::string *codigo);
+	explicit FuncionUsuarioLISP(std::string *codigo);
 
-	std::list<std::string> resolver(std::list<std::string> args, InterpreteLISP* interprete);
+	std::list<std::string> resolver(std::list<std::string> args,
+			InterpreteLISP* interprete);
 
 	virtual ~FuncionUsuarioLISP();
 

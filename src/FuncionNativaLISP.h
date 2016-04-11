@@ -12,16 +12,21 @@
 #include "codigosFuncionesLISP.h"
 #include "InterpreteLISP.h"
 
-typedef std::list<std::string> (*funcionLISP_t)(std::list<std::string>, InterpreteLISP* interprete);
+#include <string>
+#include <list>
+
+typedef std::list<std::string> (*funcionLISP_t)(std::list<std::string>,
+		InterpreteLISP* interprete);
 
 class FuncionNativaLISP : public FuncionLISP {
 private:
 	funcionLISP_t codigoFuncion;
 
 public:
-	FuncionNativaLISP(funcionLISP_t codigo);
+	explicit FuncionNativaLISP(funcionLISP_t codigo);
 
-	std::list<std::string> resolver(std::list<std::string> args, InterpreteLISP* interprete);
+	std::list<std::string> resolver(std::list<std::string> args,
+			InterpreteLISP* interprete);
 
 	virtual ~FuncionNativaLISP();
 };

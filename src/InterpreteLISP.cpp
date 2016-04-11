@@ -6,8 +6,15 @@
  */
 
 #include "InterpreteLISP.h"
+#include <string>
+#include <list>
+#include <map>
 
-InterpreteLISP::InterpreteLISP(std::string linea, std::map<std::string, std::list<std::string>*> *variablesAmbiente, std::map<std::string, FuncionLISP*> *funcionesAmbiente) : linea(linea), variablesAmbiente(variablesAmbiente), funcionesAmbiente(funcionesAmbiente) {
+InterpreteLISP::InterpreteLISP(std::string linea,
+		std::map<std::string, VariableLISP*> *variablesAmbiente,
+		std::map<std::string, FuncionLISP*> *funcionesAmbiente)
+		: linea(linea), variablesAmbiente(variablesAmbiente),
+		  funcionesAmbiente(funcionesAmbiente) {
 }
 
 void InterpreteLISP::run() {
@@ -24,7 +31,7 @@ std::list<std::string> InterpreteLISP::parseCommand(std::string comando){
 		argumento->append(1, *it);
 	}
 	comandoParseado.push_back(*argumento);
-	argumento = new std::string();
+	argumento->clear();
 	int parentesisAbiertos = 1;
 	while (parentesisAbiertos != 0) {
 		if (*it==')') {
@@ -37,7 +44,7 @@ std::list<std::string> InterpreteLISP::parseCommand(std::string comando){
 			if (*it == ' ') {
 				if (argumento->compare("") != 0) {
 					comandoParseado.push_back(*argumento);
-					argumento = new std::string();
+					argumento->clear();
 				}
 			} else {
 				argumento->append(1, *it);
@@ -51,6 +58,7 @@ std::list<std::string> InterpreteLISP::parseCommand(std::string comando){
 	if (argumento->compare("") != 0) {
 		comandoParseado.push_back(*argumento);
 	}
+	delete (argumento);
 	return comandoParseado;
 }
 
@@ -67,7 +75,7 @@ std::list<std::string> InterpreteLISP::procesarComandoLISP(std::string input){
 		comando = funcion->resolver(comando, this);
 	} else {
 		if ((*variablesAmbiente)[input] != NULL) {
-			return *(*variablesAmbiente)[input];
+			return *((*variablesAmbiente)[input])->getVariable();
 		} else {
 			comando.push_back(input);
 		}
@@ -75,7 +83,7 @@ std::list<std::string> InterpreteLISP::procesarComandoLISP(std::string input){
 	return comando;
 }
 
-void InterpreteLISP::agregarVariable(std::string nombre, std::list<std::string> *valor) {
+void InterpreteLISP::agregarVariable(std::string nombre, VariableLISP *valor) {
 	(*variablesAmbiente)[nombre] = valor;
 }
 

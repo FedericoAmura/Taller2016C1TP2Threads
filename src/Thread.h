@@ -21,7 +21,7 @@ private:
     }
 
 public:
-	Thread ();
+	Thread();
 
 	void start();
 
