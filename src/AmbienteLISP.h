@@ -15,7 +15,7 @@ class FuncionLISP;	//referencias circulares
 #include <vector>
 #include <string>
 #include <list>
-#include <cstddef>
+#include <cstdlib>
 #include "Thread.h"
 #include "InterpreteLISP.h"
 #include "FuncionLISP.h"
@@ -36,7 +36,7 @@ private:
 public:
 	AmbienteLISP();
 
-	int enterLine(std::string linea);
+	int procesarLineaLISP(std::string linea);
 
 	virtual ~AmbienteLISP();
 };

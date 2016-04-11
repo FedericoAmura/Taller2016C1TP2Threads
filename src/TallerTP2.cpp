@@ -30,7 +30,7 @@ int main(int argc, char *argv[]) {
 
 	//leo cada linea y la proceso en lisp hasta EOF
 	while (getline(cin, linea)) {
-		lineNumberError = lisp.enterLine(linea);
+		lineNumberError = lisp.procesarLineaLISP(linea);
 		if (lineNumberError > 0) {
 			cerr << "ERROR: " << lineNumberError << "\n";
 			return PROGRAM_LINE_ERROR;

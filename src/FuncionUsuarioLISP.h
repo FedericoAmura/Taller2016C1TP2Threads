@@ -24,6 +24,9 @@ public:
 	std::list<std::string> resolver(std::list<std::string> args, InterpreteLISP* interprete);
 
 	virtual ~FuncionUsuarioLISP();
+
+private:
+	std::string reemplazarAmbiente(std::string ambiente);
 };
 
 #endif /* FUNCIONUSUARIOLISP_H_ */

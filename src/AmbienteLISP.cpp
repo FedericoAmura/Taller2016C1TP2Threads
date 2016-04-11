@@ -9,15 +9,39 @@
 
 std::list<std::string> print(std::list<std::string> args, InterpreteLISP* interprete) {
 	for(std::list<std::string>::iterator args_iter = args.begin();
+			args_iter != args.end(); args_iter++){
+		if (args_iter != args.begin()) std::cout << " ";
+		std::list<std::string> subArgs = interprete->procesarComandoLISP(*args_iter);
+		if (subArgs.size() != 1) std::cout << "(";
+		for (std::list<std::string>::iterator subArgs_iter = subArgs.begin();
+				subArgs_iter != subArgs.end(); subArgs_iter++) {
+			std::cout << *subArgs_iter;
+		}
+		if (subArgs.size() != 1) std::cout << ")";
+	}
+	std::cout << std::endl;
+	std::list<std::string> retorno;
+	return retorno;
+}
+
+std::list<std::string> suma(std::list<std::string> args, InterpreteLISP* interprete) {
+	int valorFinal = 0;
+	int aux;
+	for(std::list<std::string>::iterator args_iter = args.begin();
 	    args_iter != args.end(); args_iter++){
 		std::list<std::string> subArgs = interprete->procesarComandoLISP(*args_iter);
 		for (std::list<std::string>::iterator subArgs_iter = subArgs.begin();
 				subArgs_iter != subArgs.end(); subArgs_iter++) {
-			std::cout << *subArgs_iter << " ";
+			aux = atoi((*subArgs_iter).c_str());
+			valorFinal += aux;
 		}
 	}
-	std::cout << std::endl;
+	std::cout << "Suma: " << valorFinal << std::endl;
 	std::list<std::string> retorno;
+	std::string stringFinal;
+	std::cout << "Suma: " << valorFinal << std::endl;
+	//TODO itoa(valorFinal, stringFinal.c_str(), 10);
+	retorno.push_back(stringFinal);
 	return retorno;
 }
 
@@ -44,7 +68,7 @@ std::list<std::string> cdr(std::list<std::string> args, InterpreteLISP* interpre
 			retorno.push_back(*subArgs_iter);
 		}
 	}
-	retorno.pop_front();
+	if (!retorno.empty()) retorno.pop_front();
 	return retorno;
 }
 
@@ -126,6 +150,8 @@ AmbienteLISP::AmbienteLISP() {
 	//agrego funciones nativas
 	FuncionLISP* funcionPrint = new FuncionNativaLISP(&print);
 	funcionesAmbiente["print"] = funcionPrint;
+	FuncionLISP* funcionSuma = new FuncionNativaLISP(&suma);
+	funcionesAmbiente["+"] = funcionSuma;
 	FuncionLISP* funcionLista = new FuncionNativaLISP(&lista);
 	funcionesAmbiente["list"] = funcionLista;
 	FuncionLISP* funcionCDR = new FuncionNativaLISP(&cdr);
@@ -142,7 +168,7 @@ AmbienteLISP::AmbienteLISP() {
 	funcionesAmbiente["append"] = funcionAppend;
 }
 
-int AmbienteLISP::enterLine(std::string linea) {
+int AmbienteLISP::procesarLineaLISP(std::string linea) {
 	InterpreteLISP* lineaLisp = new InterpreteLISP(linea, &variablesAmbiente, &funcionesAmbiente);
 	if (!lineaLisp->lineaValida()) {
 		delete lineaLisp;
