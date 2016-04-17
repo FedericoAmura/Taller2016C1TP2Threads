@@ -8,6 +8,8 @@
 #include "AmbienteLISP.h"
 #include <string>
 #include <list>
+#include <sstream>
+#include <map>
 
 std::list<std::string> print(std::list<std::string> args,
 		InterpreteLISP* interprete) {
@@ -19,6 +21,7 @@ std::list<std::string> print(std::list<std::string> args,
 		if (subArgs.size() != 1) std::cout << "(";
 		for (std::list<std::string>::iterator subArgs_iter = subArgs.begin();
 				subArgs_iter != subArgs.end(); subArgs_iter++) {
+			if (subArgs_iter != subArgs.begin()) std::cout << " ";
 			std::cout << *subArgs_iter;
 		}
 		if (subArgs.size() != 1) std::cout << ")";
@@ -28,12 +31,12 @@ std::list<std::string> print(std::list<std::string> args,
 	return retorno;
 }
 
-/*template <typename T>
+template <typename T>
 std::string numeroATexto(T numero) {
 	std::stringstream ss;
 	ss << numero;
-	return ss.basic_stringstream;
-}*/
+	return ss.str();
+}
 
 std::list<std::string> suma(std::list<std::string> args,
 		InterpreteLISP* interprete) {
@@ -51,8 +54,151 @@ std::list<std::string> suma(std::list<std::string> args,
 		}
 	}
 	std::string stringFinal;
-	std::cout << "Suma: " << valorFinal << std::endl;	//TODO itoa(valorFinal, stringFinal.c_str(), 10);
+	stringFinal = numeroATexto(valorFinal);
 	retorno.push_back(stringFinal);
+	return retorno;
+}
+
+std::list<std::string> resta(std::list<std::string> args,
+		InterpreteLISP* interprete) {
+	std::list<std::string> retorno;
+	int valorFinal = 0;
+	int aux;
+	for(std::list<std::string>::iterator args_iter = args.begin();
+	    args_iter != args.end(); args_iter++){
+		std::list<std::string> subArgs =
+				interprete->procesarComandoLISP(*args_iter);
+		for (std::list<std::string>::iterator subArgs_iter = subArgs.begin();
+				subArgs_iter != subArgs.end(); subArgs_iter++) {
+			aux = atoi((*subArgs_iter).c_str());
+			if (args_iter == args.begin()) {
+				valorFinal += aux;
+			} else {
+				valorFinal -= aux;
+			}
+		}
+	}
+	std::string stringFinal;
+	stringFinal = numeroATexto(valorFinal);
+	retorno.push_back(stringFinal);
+	return retorno;
+}
+
+std::list<std::string> producto(std::list<std::string> args,
+		InterpreteLISP* interprete) {
+	std::list<std::string> retorno;
+	int valorFinal = 1;
+	int aux;
+	for(std::list<std::string>::iterator args_iter = args.begin();
+	    args_iter != args.end(); args_iter++){
+		std::list<std::string> subArgs =
+				interprete->procesarComandoLISP(*args_iter);
+		for (std::list<std::string>::iterator subArgs_iter = subArgs.begin();
+				subArgs_iter != subArgs.end(); subArgs_iter++) {
+			aux = atoi((*subArgs_iter).c_str());
+			valorFinal *= aux;
+		}
+	}
+	std::string stringFinal;
+	stringFinal = numeroATexto(valorFinal);
+	retorno.push_back(stringFinal);
+	return retorno;
+}
+
+std::list<std::string> division(std::list<std::string> args,
+		InterpreteLISP* interprete) {
+	std::list<std::string> retorno;
+	float valorFinal = 1;
+	int aux;
+	for(std::list<std::string>::iterator args_iter = args.begin();
+	    args_iter != args.end(); args_iter++){
+		std::list<std::string> subArgs =
+				interprete->procesarComandoLISP(*args_iter);
+		for (std::list<std::string>::iterator subArgs_iter = subArgs.begin();
+				subArgs_iter != subArgs.end(); subArgs_iter++) {
+			aux = std::atof((*subArgs_iter).c_str());
+			if (args_iter == args.begin()) {
+				valorFinal *= aux;
+			} else {
+				valorFinal /= aux;
+			}
+		}
+	}
+	std::string stringFinal;
+	stringFinal = numeroATexto(valorFinal);
+	retorno.push_back(stringFinal);
+	return retorno;
+}
+
+std::list<std::string> mayor(std::list<std::string> args,
+		InterpreteLISP* interprete) {
+	std::list<std::string> retorno;
+	std::list<std::string> aux;
+	//primer numero
+	std::string primero = args.front();
+	args.pop_front();
+	aux = interprete->procesarComandoLISP(primero);
+	primero = aux.front();
+	//segundo numero
+	std::string segundo = args.front();
+	aux = interprete->procesarComandoLISP(segundo);
+	segundo = aux.front();
+
+	float mayorFloat = std::atof(primero.c_str());
+	float menorFloat = std::atof(segundo.c_str());
+
+	if (mayorFloat > menorFloat) {
+		std::string positivo = "1";
+		retorno.push_front(positivo);
+	}
+	return retorno;
+}
+
+std::list<std::string> menor(std::list<std::string> args,
+		InterpreteLISP* interprete) {
+	std::list<std::string> retorno;
+	std::list<std::string> aux;
+	//primer numero
+	std::string primero = args.front();
+	args.pop_front();
+	aux = interprete->procesarComandoLISP(primero);
+	primero = aux.front();
+	//segundo numero
+	std::string segundo = args.front();
+	aux = interprete->procesarComandoLISP(segundo);
+	segundo = aux.front();
+
+	float mayorFloat = std::atof(primero.c_str());
+	float menorFloat = std::atof(segundo.c_str());
+
+	if (mayorFloat < menorFloat) {
+		std::string positivo = "1";
+		retorno.push_front(positivo);
+	}
+	return retorno;
+}
+
+std::list<std::string> igual(std::list<std::string> args,
+		InterpreteLISP* interprete) {
+	std::list<std::string> retorno;
+	std::list<std::string> aux;
+	//primer numero
+	std::string primero = args.front();
+	args.pop_front();
+	aux = interprete->procesarComandoLISP(primero);
+	primero = aux.front();
+	//segundo numero
+	std::string segundo = args.front();
+	aux = interprete->procesarComandoLISP(segundo);
+	segundo = aux.front();
+
+	float primeroFloat = std::atof(primero.c_str());
+	float segundoFloat = std::atof(segundo.c_str());
+
+	if (primeroFloat == segundoFloat) {
+		std::string positivo = "1";
+		retorno.push_front(positivo);
+	}
 	return retorno;
 }
 
@@ -184,6 +330,18 @@ AmbienteLISP::AmbienteLISP() {
 	funcionesAmbiente["print"] = funcionPrint;
 	FuncionLISP* funcionSuma = new FuncionNativaLISP(&suma);
 	funcionesAmbiente["+"] = funcionSuma;
+	FuncionLISP* funcionResta = new FuncionNativaLISP(&resta);
+	funcionesAmbiente["-"] = funcionResta;
+	FuncionLISP* funcionProducto = new FuncionNativaLISP(&producto);
+	funcionesAmbiente["*"] = funcionProducto;
+	FuncionLISP* funcionDivision = new FuncionNativaLISP(&division);
+	funcionesAmbiente["/"] = funcionDivision;
+	FuncionLISP* funcionMayor = new FuncionNativaLISP(&mayor);
+	funcionesAmbiente[">"] = funcionMayor;
+	FuncionLISP* funcionMenor = new FuncionNativaLISP(&menor);
+	funcionesAmbiente["<"] = funcionMenor;
+	FuncionLISP* funcionIgual = new FuncionNativaLISP(&igual);
+	funcionesAmbiente["="] = funcionIgual;
 	FuncionLISP* funcionLista = new FuncionNativaLISP(&lista);
 	funcionesAmbiente["list"] = funcionLista;
 	FuncionLISP* funcionCDR = new FuncionNativaLISP(&cdr);
@@ -202,30 +360,28 @@ AmbienteLISP::AmbienteLISP() {
 	funcionesAmbiente["sync"] = funcionSync;
 }
 
-int AmbienteLISP::procesarLineaLISP(std::string linea) {
+std::string AmbienteLISP::procesarLineaLISP(std::string linea) {
 	InterpreteLISP* lineaLisp = new InterpreteLISP(linea,
 			&variablesAmbiente, &funcionesAmbiente);
 	if (!lineaLisp->lineaValida()) {
 		delete lineaLisp;
-		return i+1;
+		return linea;
 	}
-
 	lines.push_back(lineaLisp);
 	if(lines[i]->esSync()) {
-		while (j<=i) {
+		while (j<i) {
 			lines[j]->join();
 			j++;
 		}
-		std::cout << "Espero a todos\n";
-	} else {
-		lines[i]->start();
 	}
+	lines[i]->start();
 	i++;
 	return LINE_OK;
 }
 
 AmbienteLISP::~AmbienteLISP() {
 	for (int k = 0; k < i; k++) {
+		lines[k]->join();
 		delete lines[k];
 	}
 	for (std::map<std::string, FuncionLISP*>::iterator func_iter =

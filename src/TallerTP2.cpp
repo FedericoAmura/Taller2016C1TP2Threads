@@ -18,20 +18,20 @@
 int main(int argc, char *argv[]) {
 	//error si me llaman con argumentos
 	if (argc != 1) {
-		std::cerr << "ERROR: argumentos\n";
+		std::cout << "ERROR: argumentos\n";
 		return PROGRAM_PARAMETER_ERROR;
 	}
 
 	//declaro variables
-	int lineNumberError = 0;
+	std::string lineError = LINE_OK;
 	std::string linea;
 	AmbienteLISP lisp;
 
 	//leo cada linea y la proceso en lisp hasta EOF
 	while (std::getline(std::cin, linea)) {
-		lineNumberError = lisp.procesarLineaLISP(linea);
-		if (lineNumberError > 0) {
-			std::cerr << "ERROR: " << lineNumberError << "\n";
+		lineError = lisp.procesarLineaLISP(linea);
+		if (lineError.compare(LINE_OK) != 0) {
+			std::cout << "ERROR: " << lineError << "\n";
 			return PROGRAM_LINE_ERROR;
 		}
 	}

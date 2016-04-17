@@ -33,7 +33,7 @@ std::list<std::string> InterpreteLISP::parseCommand(std::string comando){
 	comandoParseado.push_back(*argumento);
 	argumento->clear();
 	int parentesisAbiertos = 1;
-	while (parentesisAbiertos != 0) {
+	while (parentesisAbiertos != 0 && it!=comando.end()) {
 		if (*it==')') {
 			parentesisAbiertos--;
 		} else if (*it=='(') {
@@ -65,6 +65,7 @@ std::list<std::string> InterpreteLISP::parseCommand(std::string comando){
 std::list<std::string> InterpreteLISP::procesarComandoLISP(std::string input){
 	std::list<std::string> comando;
 	std::string palabra;
+	if (input.empty()) return comando;
 	if (input.at(0) =='(') {
 		comando = parseCommand(input);
 
@@ -105,7 +106,7 @@ bool InterpreteLISP::lineaValida() {
 			return false;
 		}
 	}
-	if (cantCloseParentesis == 0) {
+	if (cantOpenParentesis!=cantCloseParentesis) {
 		return false;
 	}
 	return true;

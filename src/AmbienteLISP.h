@@ -23,7 +23,7 @@ class FuncionLISP;	//referencias circulares
 #include "FuncionUsuarioLISP.h"
 #include "VariableLISP.h"
 
-#define LINE_OK 0
+#define LINE_OK "0"
 
 class InterpreteLISP;
 
@@ -37,7 +37,7 @@ private:
 public:
 	AmbienteLISP();
 
-	int procesarLineaLISP(std::string linea);
+	std::string procesarLineaLISP(std::string linea);
 
 	virtual ~AmbienteLISP();
 };
