@@ -11,7 +11,7 @@
 #include <sstream>
 #include <map>
 
-std::list<std::string> print(std::list<std::string> args,
+/*std::list<std::string> print(std::list<std::string> args,
 		InterpreteLISP* interprete) {
 	for(std::list<std::string>::iterator args_iter = args.begin();
 			args_iter != args.end(); args_iter++){
@@ -29,6 +29,36 @@ std::list<std::string> print(std::list<std::string> args,
 	std::cout << std::endl;
 	std::list<std::string> retorno;
 	return retorno;
+}*/
+
+std::list<std::string> printRecursivo(std::list<std::string> args,
+		InterpreteLISP* interprete) {
+	for(std::list<std::string>::iterator args_iter = args.begin();
+			args_iter != args.end(); args_iter++){
+		if (args_iter != args.begin()) std::cout << " ";
+		std::list<std::string> subArgs =
+				interprete->procesarComandoLISP(*args_iter);
+		if (subArgs.size() == 0) {
+			std::cout << "()";
+		} else if (subArgs.size() == 1 && subArgs.front().at(0) != '(') {
+			std::cout << subArgs.front();
+		} else {
+			std::cout << "(";
+			printRecursivo(subArgs, interprete);
+			std::cout << ")";
+		}
+	}
+	std::list<std::string> retorno;
+	return retorno;
+}
+
+std::list<std::string> print(std::list<std::string> args,
+		InterpreteLISP* interprete) {
+
+	printRecursivo(args, interprete);
+	std::cout << std::endl;
+	std::list<std::string> retorno;
+		return retorno;
 }
 
 template <typename T>
@@ -204,7 +234,7 @@ std::list<std::string> igual(std::list<std::string> args,
 
 std::list<std::string> lista(std::list<std::string> args,
 		InterpreteLISP* interprete) {
-	std::list<std::string> retorno;
+	/*std::list<std::string> retorno;
 	for(std::list<std::string>::iterator args_iter = args.begin();
 	    args_iter != args.end(); args_iter++){
 		std::list<std::string> subArgs =
@@ -214,12 +244,13 @@ std::list<std::string> lista(std::list<std::string> args,
 			retorno.push_back(*subArgs_iter);
 		}
 	}
-	return retorno;
+	return retorno;*/
+	return args;
 }
 
 std::list<std::string> cdr(std::list<std::string> args,
 		InterpreteLISP* interprete) {
-	std::list<std::string> retorno;
+	/*std::list<std::string> retorno;
 	for(std::list<std::string>::iterator args_iter = args.begin();
 	    args_iter != args.end(); args_iter++){
 		std::list<std::string> subArgs =
@@ -230,16 +261,41 @@ std::list<std::string> cdr(std::list<std::string> args,
 		}
 	}
 	if (!retorno.empty()) retorno.pop_front();
+	return retorno;*/
+	std::list<std::string> retorno = args;
+	while (retorno.front().at(0) == '(') {
+		std::string primerArgumento = retorno.front();
+		retorno = interprete->procesarComandoLISP(primerArgumento);
+	}
+	retorno.pop_front();
 	return retorno;
 }
 
 std::list<std::string> car(std::list<std::string> args,
 		InterpreteLISP* interprete) {
+	/*std::list<std::string> retorno;
+	std::list<std::string> resolver = args;
+	while (resolver.front().at(0) == '('){
+		std::string primerArgumento = resolver.front();
+		resolver = interprete->procesarComandoLISP(primerArgumento);
+	}
+	retorno.push_back(resolver.front());
+	return retorno;*/
+	if (args.size() == 0) return args;
 	std::list<std::string> retorno;
-	std::string primerArgumento = args.front();
-	std::list<std::string> primerArgumentoResuelto =
-			interprete->procesarComandoLISP(primerArgumento);
-	retorno.push_back(primerArgumentoResuelto.front());
+	std::string valor;
+	if (args.size() == 1) {
+		std::list<std::string> resolver =
+				interprete->procesarComandoLISP(args.front());
+		valor = resolver.front();
+	} else {
+		valor = args.front();
+	}
+	if (valor.substr(0,2) == "(l") {
+		retorno = interprete->procesarComandoLISP(valor);
+	} else {
+		retorno.push_back(valor);
+	}
 	return retorno;
 }
 
