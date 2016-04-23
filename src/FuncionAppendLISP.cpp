@@ -8,7 +8,6 @@
 #include "FuncionAppendLISP.h"
 
 FuncionAppendLISP::FuncionAppendLISP() {
-	tipo = CODIGO_FUNCION_NATIVA;
 }
 
 std::vector<std::string> FuncionAppendLISP::resolver(

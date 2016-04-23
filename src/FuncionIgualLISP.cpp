@@ -9,7 +9,6 @@
 #include <cstdlib>
 
 FuncionIgualLISP::FuncionIgualLISP() {
-	tipo = CODIGO_FUNCION_NATIVA;
 }
 
 std::vector<std::string> FuncionIgualLISP::resolver(

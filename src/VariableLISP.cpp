@@ -10,21 +10,20 @@
 #include <vector>
 
 VariableLISP::VariableLISP(std::vector<std::string> *valor) : variable(valor) {
-	Mutex *mutex = new Mutex();
-	m = mutex;
 }
 
 std::vector<std::string>* VariableLISP::getVariable() {
-	return variable;
+	Lock l(m);
+	std::vector<std::string>* copia = variable;
+	return copia;
 }
 
 void VariableLISP::setVariable(std::vector<std::string> *valor) {
-	Lock l(*m);
+	Lock l(m);
 	variable = valor;
 }
 
 VariableLISP::~VariableLISP() {
-	delete(m);
 	delete(variable);
 }
 

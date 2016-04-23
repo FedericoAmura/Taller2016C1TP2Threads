@@ -25,17 +25,19 @@ private:
 	std::map<std::string, FuncionLISP*> *funcionesAmbiente;
 
 public:
-	InterpreteLISP(std::string linea,
+	InterpreteLISP(const std::string linea,
 			std::map<std::string, VariableLISP*> *variablesAmbiente,
 			std::map<std::string, FuncionLISP*> *funcionesAmbiente);
 
 	virtual void run();
 
-	std::vector<std::string> procesarComandoLISP(std::string linea);
+	std::vector<std::string> procesarComandoLISP(const std::string linea);
 
-	void agregarVariable(std::string nombre, VariableLISP *valor);
+	void agregarVariable(const std::string nombre, VariableLISP *valor);
 
-	void agregarFuncion(std::string nombre, FuncionLISP *valor);
+	VariableLISP* conseguirVariable(const std::string nombre);
+
+	void agregarFuncion(const std::string nombre, FuncionLISP *valor);
 
 	bool esSync();
 

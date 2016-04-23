@@ -8,7 +8,6 @@
 #include "FuncionCdrLISP.h"
 
 FuncionCdrLISP::FuncionCdrLISP() {
-	tipo = CODIGO_FUNCION_NATIVA;
 }
 
 std::vector<std::string> FuncionCdrLISP::resolver(

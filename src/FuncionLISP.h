@@ -13,12 +13,9 @@
 
 class InterpreteLISP;	//referencias circulares
 
-#include "codigosFuncionesLISP.h"
 #include "InterpreteLISP.h"
 
 class FuncionLISP {
-protected:
-	int tipo;
 public:
 	FuncionLISP();
 

@@ -10,7 +10,6 @@
 #include <cstdlib>
 
 FuncionDivisionLISP::FuncionDivisionLISP() {
-	tipo = CODIGO_FUNCION_NATIVA;
 }
 
 std::vector<std::string> FuncionDivisionLISP::resolver(

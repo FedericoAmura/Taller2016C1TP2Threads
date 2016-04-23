@@ -10,7 +10,6 @@
 #include <cstdlib>
 
 FuncionProductoLISP::FuncionProductoLISP() {
-	tipo = CODIGO_FUNCION_NATIVA;
 }
 
 std::vector<std::string> FuncionProductoLISP::resolver(

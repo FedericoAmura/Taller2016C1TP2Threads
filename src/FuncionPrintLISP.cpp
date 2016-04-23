@@ -8,7 +8,6 @@
 #include "FuncionPrintLISP.h"
 
 FuncionPrintLISP::FuncionPrintLISP() {
-	tipo = CODIGO_FUNCION_NATIVA;
 }
 
 std::vector<std::string> FuncionPrintLISP::printRecursivo(

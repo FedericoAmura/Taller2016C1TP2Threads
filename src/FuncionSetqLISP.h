@@ -13,7 +13,6 @@
 
 class InterpreteLISP;	//referencias circulares
 
-#include "codigosFuncionesLISP.h"
 #include "InterpreteLISP.h"
 
 class FuncionSetqLISP : public FuncionLISP {

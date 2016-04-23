@@ -9,12 +9,11 @@
 #include <string>
 #include <vector>
 
-FuncionUsuarioLISP::FuncionUsuarioLISP(std::string *codigo) : codigo(codigo) {
-	tipo = CODIGO_FUNCION_USUARIO;
+FuncionUsuarioLISP::FuncionUsuarioLISP(const std::string codigo) : codigo(codigo) {
 }
 
 std::string FuncionUsuarioLISP::reemplazarAmbiente(std::string ambiente) {
-	std::string nuevoCodigo = *codigo;
+	std::string nuevoCodigo = codigo;
 	size_t index = 0;
 	while (true) {
 		index = nuevoCodigo.find("ENV", index);
@@ -38,6 +37,5 @@ std::vector<std::string> FuncionUsuarioLISP::resolver(
 }
 
 FuncionUsuarioLISP::~FuncionUsuarioLISP() {
-	delete(codigo);
 }
 

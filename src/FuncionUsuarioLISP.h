@@ -9,7 +9,6 @@
 #define FUNCIONUSUARIOLISP_H_
 
 #include "FuncionLISP.h"
-#include "codigosFuncionesLISP.h"
 #include "InterpreteLISP.h"
 
 #include <string>
@@ -17,10 +16,10 @@
 
 class FuncionUsuarioLISP : public FuncionLISP {
 private:
-	std::string *codigo;
+	std::string codigo;
 
 public:
-	explicit FuncionUsuarioLISP(std::string *codigo);
+	explicit FuncionUsuarioLISP(const std::string codigo);
 
 	std::vector<std::string> resolver(std::vector<std::string> args,
 			InterpreteLISP* interprete);
@@ -28,7 +27,7 @@ public:
 	virtual ~FuncionUsuarioLISP();
 
 private:
-	std::string reemplazarAmbiente(std::string ambiente);
+	std::string reemplazarAmbiente(const std::string ambiente);
 };
 
 #endif /* FUNCIONUSUARIOLISP_H_ */

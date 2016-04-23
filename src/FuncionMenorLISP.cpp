@@ -9,7 +9,6 @@
 #include <cstdlib>
 
 FuncionMenorLISP::FuncionMenorLISP() {
-	tipo = CODIGO_FUNCION_NATIVA;
 }
 
 std::vector<std::string> FuncionMenorLISP::resolver(

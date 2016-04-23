@@ -3,7 +3,7 @@
 // Author      : Freddy
 // Version     :
 // Copyright   : Do not copy
-// Description : Hello World in C++, Ansi-style
+// Description : Parallel LISP
 //============================================================================
 
 #include <iostream>

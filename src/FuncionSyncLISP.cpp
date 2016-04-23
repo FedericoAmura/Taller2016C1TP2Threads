@@ -8,7 +8,6 @@
 #include "FuncionSyncLISP.h"
 
 FuncionSyncLISP::FuncionSyncLISP() {
-	tipo = CODIGO_FUNCION_NATIVA;
 }
 
 std::vector<std::string> FuncionSyncLISP::resolver(

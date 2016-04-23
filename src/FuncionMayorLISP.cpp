@@ -9,7 +9,6 @@
 #include <cstdlib>
 
 FuncionMayorLISP::FuncionMayorLISP() {
-	tipo = CODIGO_FUNCION_NATIVA;
 }
 
 std::vector<std::string> FuncionMayorLISP::resolver(
@@ -18,17 +17,18 @@ std::vector<std::string> FuncionMayorLISP::resolver(
 	std::vector<std::string> retorno;
 		std::vector<std::string> aux;
 		//primer numero
-		std::string primero = args.front();
-		args.erase(args.begin());
-		aux = interprete->procesarComandoLISP(primero);
-		primero = aux.front();
-		//segundo numero
-		std::string segundo = args.front();
-		aux = interprete->procesarComandoLISP(segundo);
-		segundo = aux.front();
+		std::string primerValor = args.front();
+		aux = interprete->procesarComandoLISP(primerValor);
+		primerValor = aux.front();
 
-		float mayorFloat = std::atof(primero.c_str());
-		float menorFloat = std::atof(segundo.c_str());
+		args.erase(args.begin());
+		//segundo numero
+		std::string segundoValor = args.front();
+		aux = interprete->procesarComandoLISP(segundoValor);
+		segundoValor = aux.front();
+
+		float mayorFloat = std::atof(primerValor.c_str());
+		float menorFloat = std::atof(segundoValor.c_str());
 
 		if (mayorFloat > menorFloat) {
 			std::string positivo = "1";

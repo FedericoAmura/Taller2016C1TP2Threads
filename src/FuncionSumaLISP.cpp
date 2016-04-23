@@ -10,7 +10,6 @@
 #include <cstdlib>
 
 FuncionSumaLISP::FuncionSumaLISP() {
-	tipo = CODIGO_FUNCION_NATIVA;
 }
 
 std::vector<std::string> FuncionSumaLISP::resolver(

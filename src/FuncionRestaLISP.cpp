@@ -10,7 +10,6 @@
 #include <cstdlib>
 
 FuncionRestaLISP::FuncionRestaLISP() {
-	tipo = CODIGO_FUNCION_NATIVA;
 }
 
 std::vector<std::string> FuncionRestaLISP::resolver(

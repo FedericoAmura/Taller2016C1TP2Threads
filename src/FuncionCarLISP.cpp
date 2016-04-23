@@ -8,7 +8,6 @@
 #include "FuncionCarLISP.h"
 
 FuncionCarLISP::FuncionCarLISP() {
-	tipo = CODIGO_FUNCION_NATIVA;
 }
 
 std::vector<std::string> FuncionCarLISP::resolver(

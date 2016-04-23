@@ -8,7 +8,6 @@
 #include "FuncionListaLISP.h"
 
 FuncionListaLISP::FuncionListaLISP() {
-	tipo = CODIGO_FUNCION_NATIVA;
 }
 
 std::vector<std::string> FuncionListaLISP::resolver(

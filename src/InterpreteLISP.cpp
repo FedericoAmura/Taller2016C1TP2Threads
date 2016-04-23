@@ -10,7 +10,7 @@
 #include <vector>
 #include <map>
 
-InterpreteLISP::InterpreteLISP(std::string linea,
+InterpreteLISP::InterpreteLISP(const std::string linea,
 		std::map<std::string, VariableLISP*> *variablesAmbiente,
 		std::map<std::string, FuncionLISP*> *funcionesAmbiente)
 		: linea(linea), variablesAmbiente(variablesAmbiente),
@@ -21,17 +21,18 @@ void InterpreteLISP::run() {
 	procesarComandoLISP(linea);
 }
 
-std::vector<std::string> InterpreteLISP::parseCommand(std::string comando){
-	std::string *argumento = new std::string();
+std::vector<std::string> InterpreteLISP::parseCommand(
+		const std::string comando){
+	std::string argumento;
 	std::vector<std::string> comandoParseado;
 
-	std::string::iterator it=comando.begin();
+	std::string::const_iterator it=comando.begin();
 	it++;	//para salvarme del primer "("
 	for (; (*it!=' ') && (*it!=')'); ++it){
-		argumento->append(1, *it);
+		argumento.append(1, *it);
 	}
-	comandoParseado.push_back(*argumento);
-	argumento->clear();
+	comandoParseado.push_back(argumento);
+	argumento.clear();
 	int parentesisAbiertos = 1;
 	while (parentesisAbiertos != 0 && it!=comando.end()) {
 		if (*it==')') {
@@ -42,31 +43,32 @@ std::vector<std::string> InterpreteLISP::parseCommand(std::string comando){
 		if (parentesisAbiertos == 1) {
 			//voy creando argumentos separando por espacio
 			if (*it == ' ') {
-				if (argumento->compare("") != 0) {
-					comandoParseado.push_back(*argumento);
-					argumento->clear();
+				if (argumento.compare("") != 0) {
+					comandoParseado.push_back(argumento);
+					argumento.clear();
 				}
 			} else {
-				argumento->append(1, *it);
+				argumento.append(1, *it);
 			}
 		}
 		if (parentesisAbiertos > 1) {
-			argumento->append(1, *it);
+			argumento.append(1, *it);
 		}
 		++it;
 	}
-	if (argumento->compare("") != 0) {
-		comandoParseado.push_back(*argumento);
+	if (argumento.compare("") != 0) {
+		comandoParseado.push_back(argumento);
 	}
-	delete (argumento);
 	return comandoParseado;
 }
 
-std::vector<std::string> InterpreteLISP::procesarComandoLISP(std::string input){
+std::vector<std::string> InterpreteLISP::procesarComandoLISP(
+		const std::string input){
 	std::vector<std::string> comando;
 	std::string palabra;
 	if (input.empty()) return comando;
 	if (input.at(0) =='(') {
+		//el string ingresado es comando lisp
 		comando = parseCommand(input);
 
 		std::string nombreFuncion;
@@ -75,20 +77,29 @@ std::vector<std::string> InterpreteLISP::procesarComandoLISP(std::string input){
 		FuncionLISP* funcion = (*funcionesAmbiente)[nombreFuncion];
 		comando = funcion->resolver(comando, this);
 	} else {
+		//el string ingresado es un simbolo
 		if ((*variablesAmbiente)[input] != NULL) {
+			//el simbolo es una variable definida anteriormente
 			return *((*variablesAmbiente)[input])->getVariable();
 		} else {
+			//el simbolo ingresado es un literal
 			comando.push_back(input);
 		}
 	}
 	return comando;
 }
 
-void InterpreteLISP::agregarVariable(std::string nombre, VariableLISP *valor) {
+void InterpreteLISP::agregarVariable(const std::string nombre,
+		VariableLISP *valor) {
 	(*variablesAmbiente)[nombre] = valor;
 }
 
-void InterpreteLISP::agregarFuncion(std::string nombre, FuncionLISP *valor) {
+VariableLISP* InterpreteLISP::conseguirVariable(const std::string nombre) {
+	return (*variablesAmbiente)[nombre];
+}
+
+void InterpreteLISP::agregarFuncion(const std::string nombre,
+		FuncionLISP *valor) {
 	(*funcionesAmbiente)[nombre] = valor;
 }
 

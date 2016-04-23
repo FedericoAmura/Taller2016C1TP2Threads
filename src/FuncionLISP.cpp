@@ -9,10 +9,7 @@
 #include <string>
 #include <vector>
 
-#define TIPO_FUNCION_NATIVA 0
-#define TIPO_FUNCION_USUARIO 1
-
-FuncionLISP::FuncionLISP() : tipo(0){
+FuncionLISP::FuncionLISP() {
 }
 
 FuncionLISP::~FuncionLISP() {

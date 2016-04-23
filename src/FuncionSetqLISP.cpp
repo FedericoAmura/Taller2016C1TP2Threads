@@ -8,7 +8,6 @@
 #include "FuncionSetqLISP.h"
 
 FuncionSetqLISP::FuncionSetqLISP() {
-	tipo = CODIGO_FUNCION_NATIVA;
 }
 
 std::vector<std::string> FuncionSetqLISP::resolver(
@@ -24,7 +23,15 @@ std::vector<std::string> FuncionSetqLISP::resolver(
 	std::vector<std::string> *valorVariable = new std::vector<std::string>();
 	*valorVariable = interprete->procesarComandoLISP(argumento);
 
-	VariableLISP *variable = new VariableLISP(valorVariable);
+	VariableLISP *variable = interprete->conseguirVariable(nombreVariable);
+	if (variable == 0) {
+		//la variable no existe
+		variable = new VariableLISP(valorVariable);
+	} else {
+		//modifico el valor de la variable
+		delete(variable->getVariable());
+		variable->setVariable(valorVariable);
+	}
 	interprete->agregarVariable(nombreVariable, variable);
 
 	std::vector<std::string> retorno;

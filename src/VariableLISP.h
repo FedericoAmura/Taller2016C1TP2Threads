@@ -17,16 +17,20 @@
 
 class VariableLISP {
 private:
-	Mutex *m;
+	Mutex m; //mutex para no permitir que se superpongan lecturas/escrituras
 	std::vector<std::string>* variable;
 
 public:
+	//constructor de los objetos variables
 	explicit VariableLISP(std::vector<std::string> *valor);
 
+	//getter
 	std::vector<std::string>* getVariable();
 
+	//setter
 	void setVariable(std::vector<std::string> *valor);
 
+	//destructor
 	virtual ~VariableLISP();
 };
 

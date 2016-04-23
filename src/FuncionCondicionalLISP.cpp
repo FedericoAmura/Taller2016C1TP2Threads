@@ -8,7 +8,6 @@
 #include "FuncionCondicionalLISP.h"
 
 FuncionCondicionalLISP::FuncionCondicionalLISP() {
-	tipo = CODIGO_FUNCION_NATIVA;
 }
 
 std::vector<std::string> FuncionCondicionalLISP::resolver(
