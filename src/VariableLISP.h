@@ -9,7 +9,7 @@
 #define VARIABLELISP_H_
 
 #include <string>
-#include <list>
+#include <vector>
 
 #include "Mutex.h"
 #include "Lock.h"
@@ -18,14 +18,14 @@
 class VariableLISP {
 private:
 	Mutex *m;
-	std::list<std::string>* variable;
+	std::vector<std::string>* variable;
 
 public:
-	explicit VariableLISP(std::list<std::string> *valor);
+	explicit VariableLISP(std::vector<std::string> *valor);
 
-	std::list<std::string>* getVariable();
+	std::vector<std::string>* getVariable();
 
-	void setVariable(std::list<std::string> *valor);
+	void setVariable(std::vector<std::string> *valor);
 
 	virtual ~VariableLISP();
 };

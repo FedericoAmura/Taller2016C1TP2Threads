@@ -9,7 +9,7 @@
 #define FUNCIONLISP_H_
 
 #include <string>
-#include <list>
+#include <vector>
 
 class InterpreteLISP;	//referencias circulares
 
@@ -22,8 +22,8 @@ protected:
 public:
 	FuncionLISP();
 
-	virtual std::list<std::string> resolver(std::list<std::string> args,
-			InterpreteLISP* interprete);
+	virtual std::vector<std::string> resolver(std::vector<std::string> args,
+			InterpreteLISP* interprete) = 0;
 
 	virtual ~FuncionLISP();
 };

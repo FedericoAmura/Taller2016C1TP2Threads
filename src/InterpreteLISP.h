@@ -12,7 +12,7 @@ class FuncionLISP;	//referencias circular
 
 #include <iostream>
 #include <string>
-#include <list>
+#include <vector>
 #include <map>
 #include "Thread.h"
 #include "FuncionLISP.h"
@@ -31,7 +31,7 @@ public:
 
 	virtual void run();
 
-	std::list<std::string> procesarComandoLISP(std::string linea);
+	std::vector<std::string> procesarComandoLISP(std::string linea);
 
 	void agregarVariable(std::string nombre, VariableLISP *valor);
 
@@ -45,7 +45,7 @@ public:
 
 private:
 	int verificarSintaxis();
-	std::list<std::string> parseCommand(std::string comando);
+	std::vector<std::string> parseCommand(std::string comando);
 };
 
 #endif /* INTERPRETELISP_H_ */

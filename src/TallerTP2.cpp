@@ -29,10 +29,12 @@ int main(int argc, char *argv[]) {
 
 	//leo cada linea y la proceso en lisp hasta EOF
 	while (std::getline(std::cin, linea)) {
-		lineError = lisp.procesarLineaLISP(linea);
-		if (lineError.compare(LINE_OK) != 0) {
-			std::cout << "ERROR: " << lineError << "\n";
-			return PROGRAM_LINE_ERROR;
+		if (!linea.empty()) {
+			lineError = lisp.procesarLineaLISP(linea);
+			if (lineError.compare(LINE_OK) != 0) {
+				std::cout << "ERROR: " << lineError << "\n";
+				return PROGRAM_LINE_ERROR;
+			}
 		}
 	}
 

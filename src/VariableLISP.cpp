@@ -7,18 +7,18 @@
 
 #include "VariableLISP.h"
 #include <string>
-#include <list>
+#include <vector>
 
-VariableLISP::VariableLISP(std::list<std::string> *valor) : variable(valor) {
+VariableLISP::VariableLISP(std::vector<std::string> *valor) : variable(valor) {
 	Mutex *mutex = new Mutex();
 	m = mutex;
 }
 
-std::list<std::string>* VariableLISP::getVariable() {
+std::vector<std::string>* VariableLISP::getVariable() {
 	return variable;
 }
 
-void VariableLISP::setVariable(std::list<std::string> *valor) {
+void VariableLISP::setVariable(std::vector<std::string> *valor) {
 	Lock l(*m);
 	variable = valor;
 }

@@ -13,7 +13,7 @@
 #include "InterpreteLISP.h"
 
 #include <string>
-#include <list>
+#include <vector>
 
 class FuncionUsuarioLISP : public FuncionLISP {
 private:
@@ -22,7 +22,7 @@ private:
 public:
 	explicit FuncionUsuarioLISP(std::string *codigo);
 
-	std::list<std::string> resolver(std::list<std::string> args,
+	std::vector<std::string> resolver(std::vector<std::string> args,
 			InterpreteLISP* interprete);
 
 	virtual ~FuncionUsuarioLISP();

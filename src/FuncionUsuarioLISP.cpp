@@ -7,7 +7,7 @@
 
 #include "FuncionUsuarioLISP.h"
 #include <string>
-#include <list>
+#include <vector>
 
 FuncionUsuarioLISP::FuncionUsuarioLISP(std::string *codigo) : codigo(codigo) {
 	tipo = CODIGO_FUNCION_USUARIO;
@@ -27,9 +27,10 @@ std::string FuncionUsuarioLISP::reemplazarAmbiente(std::string ambiente) {
 	return nuevoCodigo;
 }
 
-std::list<std::string> FuncionUsuarioLISP::resolver(std::list<std::string> args,
+std::vector<std::string> FuncionUsuarioLISP::resolver(
+		std::vector<std::string> args,
 		InterpreteLISP* interprete) {
-	std::list<std::string> lista;
+	std::vector<std::string> lista;
 	std::string ambiente = args.front();
 	std::string nuevoCodigo = FuncionUsuarioLISP::reemplazarAmbiente(ambiente);
 	lista = interprete->procesarComandoLISP(nuevoCodigo);

@@ -1,0 +1,29 @@
+/*
+ * FuncionMenorLISP.h
+ *
+ *  Created on: Apr 23, 2016
+ *      Author: freddy
+ */
+
+#ifndef FUNCIONMENORLISP_H_
+#define FUNCIONMENORLISP_H_
+
+#include <string>
+#include <vector>
+
+class InterpreteLISP;	//referencias circulares
+
+#include "codigosFuncionesLISP.h"
+#include "InterpreteLISP.h"
+
+class FuncionMenorLISP : public FuncionLISP {
+public:
+	FuncionMenorLISP();
+
+	std::vector<std::string> resolver(std::vector<std::string> args,
+				InterpreteLISP* interprete);
+
+	virtual ~FuncionMenorLISP();
+};
+
+#endif /* FUNCIONMENORLISP_H_ */

@@ -7,7 +7,7 @@
 
 #include "InterpreteLISP.h"
 #include <string>
-#include <list>
+#include <vector>
 #include <map>
 
 InterpreteLISP::InterpreteLISP(std::string linea,
@@ -21,9 +21,9 @@ void InterpreteLISP::run() {
 	procesarComandoLISP(linea);
 }
 
-std::list<std::string> InterpreteLISP::parseCommand(std::string comando){
+std::vector<std::string> InterpreteLISP::parseCommand(std::string comando){
 	std::string *argumento = new std::string();
-	std::list<std::string> comandoParseado;
+	std::vector<std::string> comandoParseado;
 
 	std::string::iterator it=comando.begin();
 	it++;	//para salvarme del primer "("
@@ -62,8 +62,8 @@ std::list<std::string> InterpreteLISP::parseCommand(std::string comando){
 	return comandoParseado;
 }
 
-std::list<std::string> InterpreteLISP::procesarComandoLISP(std::string input){
-	std::list<std::string> comando;
+std::vector<std::string> InterpreteLISP::procesarComandoLISP(std::string input){
+	std::vector<std::string> comando;
 	std::string palabra;
 	if (input.empty()) return comando;
 	if (input.at(0) =='(') {
@@ -71,7 +71,7 @@ std::list<std::string> InterpreteLISP::procesarComandoLISP(std::string input){
 
 		std::string nombreFuncion;
 		nombreFuncion = comando.front();
-		comando.pop_front();
+		comando.erase(comando.begin());
 		FuncionLISP* funcion = (*funcionesAmbiente)[nombreFuncion];
 		comando = funcion->resolver(comando, this);
 	} else {
