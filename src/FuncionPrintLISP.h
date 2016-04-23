@@ -20,14 +20,14 @@ public:
 	FuncionPrintLISP();
 
 	std::vector<std::string> resolver(std::vector<std::string> args,
-				InterpreteLISP* interprete);
+				const InterpreteLISP &interprete);
 
 	virtual ~FuncionPrintLISP();
 
 private:
 	std::vector<std::string> printRecursivo(
 			std::vector<std::string> args,
-			InterpreteLISP* interprete);
+			const InterpreteLISP &interprete);
 };
 
 #endif /* FUNCIONPRINTLISP_H_ */

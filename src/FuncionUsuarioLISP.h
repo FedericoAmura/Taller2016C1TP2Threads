@@ -19,15 +19,15 @@ private:
 	std::string codigo;
 
 public:
-	explicit FuncionUsuarioLISP(const std::string codigo);
+	explicit FuncionUsuarioLISP(const std::string &codigo);
 
 	std::vector<std::string> resolver(std::vector<std::string> args,
-			InterpreteLISP* interprete);
+			const InterpreteLISP &interprete);
 
 	virtual ~FuncionUsuarioLISP();
 
 private:
-	std::string reemplazarAmbiente(const std::string ambiente);
+	std::string reemplazarAmbiente(const std::string &ambiente);
 };
 
 #endif /* FUNCIONUSUARIOLISP_H_ */

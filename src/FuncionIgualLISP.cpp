@@ -13,17 +13,17 @@ FuncionIgualLISP::FuncionIgualLISP() {
 
 std::vector<std::string> FuncionIgualLISP::resolver(
 		std::vector<std::string> args,
-		InterpreteLISP* interprete) {
+		const InterpreteLISP &interprete) {
 	std::vector<std::string> retorno;
 	std::vector<std::string> aux;
 	//primer numero
 	std::string primero = args.front();
 	args.erase(args.begin());
-	aux = interprete->procesarComandoLISP(primero);
+	aux = interprete.procesarComandoLISP(primero);
 	primero = aux.front();
 	//segundo numero
 	std::string segundo = args.front();
-	aux = interprete->procesarComandoLISP(segundo);
+	aux = interprete.procesarComandoLISP(segundo);
 	segundo = aux.front();
 
 	float primeroFloat = std::atof(primero.c_str());

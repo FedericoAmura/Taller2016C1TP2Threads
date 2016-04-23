@@ -13,18 +13,18 @@ FuncionMayorLISP::FuncionMayorLISP() {
 
 std::vector<std::string> FuncionMayorLISP::resolver(
 		std::vector<std::string> args,
-		InterpreteLISP* interprete) {
+		const InterpreteLISP &interprete) {
 	std::vector<std::string> retorno;
 		std::vector<std::string> aux;
 		//primer numero
 		std::string primerValor = args.front();
-		aux = interprete->procesarComandoLISP(primerValor);
+		aux = interprete.procesarComandoLISP(primerValor);
 		primerValor = aux.front();
 
 		args.erase(args.begin());
 		//segundo numero
 		std::string segundoValor = args.front();
-		aux = interprete->procesarComandoLISP(segundoValor);
+		aux = interprete.procesarComandoLISP(segundoValor);
 		segundoValor = aux.front();
 
 		float mayorFloat = std::atof(primerValor.c_str());

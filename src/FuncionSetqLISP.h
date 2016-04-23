@@ -20,7 +20,7 @@ public:
 	FuncionSetqLISP();
 
 	std::vector<std::string> resolver(std::vector<std::string> args,
-				InterpreteLISP* interprete);
+				const InterpreteLISP &interprete);
 
 	virtual ~FuncionSetqLISP();
 };

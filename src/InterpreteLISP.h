@@ -31,23 +31,23 @@ public:
 
 	virtual void run();
 
-	std::vector<std::string> procesarComandoLISP(const std::string linea);
+	std::vector<std::string> procesarComandoLISP(const std::string &linea)const;
 
-	void agregarVariable(const std::string nombre, VariableLISP *valor);
+	void agregarVariable(const std::string &nombre, VariableLISP *valor) const;
 
-	VariableLISP* conseguirVariable(const std::string nombre);
+	VariableLISP* conseguirVariable(const std::string &nombre) const;
 
-	void agregarFuncion(const std::string nombre, FuncionLISP *valor);
+	void agregarFuncion(const std::string &nombre, FuncionLISP *valor) const;
 
-	bool esSync();
+	bool esSync() const;
 
-	bool lineaValida();
+	bool lineaValida() const;
 
 	virtual ~InterpreteLISP();
 
 private:
 	int verificarSintaxis();
-	std::vector<std::string> parseCommand(std::string comando);
+	std::vector<std::string> parseCommand(const std::string &comando) const;
 };
 
 #endif /* INTERPRETELISP_H_ */

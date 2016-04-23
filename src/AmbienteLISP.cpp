@@ -49,7 +49,7 @@ AmbienteLISP::AmbienteLISP() {
 	funcionesAmbiente["sync"] = (FuncionLISP*) new FuncionSyncLISP();
 }
 
-std::string AmbienteLISP::procesarLineaLISP(const std::string linea) {
+std::string AmbienteLISP::procesarLineaLISP(const std::string &linea) {
 	InterpreteLISP* lineaLisp = new InterpreteLISP(linea,
 			&variablesAmbiente, &funcionesAmbiente);
 	if (!lineaLisp->lineaValida()) {

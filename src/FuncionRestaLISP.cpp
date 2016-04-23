@@ -14,14 +14,14 @@ FuncionRestaLISP::FuncionRestaLISP() {
 
 std::vector<std::string> FuncionRestaLISP::resolver(
 		std::vector<std::string> args,
-		InterpreteLISP* interprete) {
+		const InterpreteLISP &interprete) {
 	std::vector<std::string> retorno;
 		int valorFinal = 0;
 		int aux;
 		for(std::vector<std::string>::iterator args_iter = args.begin();
 		    args_iter != args.end(); args_iter++){
 			std::vector<std::string> subArgs =
-					interprete->procesarComandoLISP(*args_iter);
+					interprete.procesarComandoLISP(*args_iter);
 			for (std::vector<std::string>::iterator subArgs_iter = subArgs.begin();
 					subArgs_iter != subArgs.end(); subArgs_iter++) {
 				aux = atoi((*subArgs_iter).c_str());

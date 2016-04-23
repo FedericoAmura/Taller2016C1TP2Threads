@@ -12,7 +12,7 @@ FuncionSyncLISP::FuncionSyncLISP() {
 
 std::vector<std::string> FuncionSyncLISP::resolver(
 		std::vector<std::string> args,
-		InterpreteLISP* interprete) {
+		const InterpreteLISP &interprete) {
 	return args;
 }
 

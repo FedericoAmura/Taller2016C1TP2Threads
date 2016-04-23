@@ -20,7 +20,7 @@ public:
 	FuncionMenorLISP();
 
 	std::vector<std::string> resolver(std::vector<std::string> args,
-				InterpreteLISP* interprete);
+				const InterpreteLISP &interprete);
 
 	virtual ~FuncionMenorLISP();
 };

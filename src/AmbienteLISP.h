@@ -37,7 +37,7 @@ public:
 	AmbienteLISP();
 
 	//acepta una nueva linea y la procesa en un nuevo hilo
-	std::string procesarLineaLISP(const std::string linea);
+	std::string procesarLineaLISP(const std::string &linea);
 
 	virtual ~AmbienteLISP();
 };

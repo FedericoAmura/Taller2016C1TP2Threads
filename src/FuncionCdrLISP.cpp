@@ -12,11 +12,11 @@ FuncionCdrLISP::FuncionCdrLISP() {
 
 std::vector<std::string> FuncionCdrLISP::resolver(
 		std::vector<std::string> args,
-		InterpreteLISP* interprete) {
+		const InterpreteLISP &interprete) {
 	std::vector<std::string> retorno = args;
 	do {
 		std::string primerArgumento = retorno.front();
-		retorno = interprete->procesarComandoLISP(primerArgumento);
+		retorno = interprete.procesarComandoLISP(primerArgumento);
 	} while (retorno.front().at(0) == '(');
 	if (!retorno.empty())
 		retorno.erase(retorno.begin());

@@ -22,7 +22,7 @@ void InterpreteLISP::run() {
 }
 
 std::vector<std::string> InterpreteLISP::parseCommand(
-		const std::string comando){
+		const std::string &comando) const{
 	std::string argumento;
 	std::vector<std::string> comandoParseado;
 
@@ -63,7 +63,7 @@ std::vector<std::string> InterpreteLISP::parseCommand(
 }
 
 std::vector<std::string> InterpreteLISP::procesarComandoLISP(
-		const std::string input){
+		const std::string &input) const {
 	std::vector<std::string> comando;
 	std::string palabra;
 	if (input.empty()) return comando;
@@ -75,7 +75,7 @@ std::vector<std::string> InterpreteLISP::procesarComandoLISP(
 		nombreFuncion = comando.front();
 		comando.erase(comando.begin());
 		FuncionLISP* funcion = (*funcionesAmbiente)[nombreFuncion];
-		comando = funcion->resolver(comando, this);
+		comando = funcion->resolver(comando, *this);
 	} else {
 		//el string ingresado es un simbolo
 		if ((*variablesAmbiente)[input] != NULL) {
@@ -89,28 +89,28 @@ std::vector<std::string> InterpreteLISP::procesarComandoLISP(
 	return comando;
 }
 
-void InterpreteLISP::agregarVariable(const std::string nombre,
-		VariableLISP *valor) {
+void InterpreteLISP::agregarVariable(const std::string &nombre,
+		VariableLISP *valor) const {
 	(*variablesAmbiente)[nombre] = valor;
 }
 
-VariableLISP* InterpreteLISP::conseguirVariable(const std::string nombre) {
+VariableLISP* InterpreteLISP::conseguirVariable(const std::string &nombre)const{
 	return (*variablesAmbiente)[nombre];
 }
 
-void InterpreteLISP::agregarFuncion(const std::string nombre,
-		FuncionLISP *valor) {
+void InterpreteLISP::agregarFuncion(const std::string &nombre,
+		FuncionLISP *valor) const {
 	(*funcionesAmbiente)[nombre] = valor;
 }
 
-bool InterpreteLISP::esSync() {
+bool InterpreteLISP::esSync() const {
 	return (linea.compare("(sync)") == 0);
 }
 
-bool InterpreteLISP::lineaValida() {
+bool InterpreteLISP::lineaValida() const {
 	int cantOpenParentesis = 0;
 	int cantCloseParentesis = 0;
-	for (std::string::iterator it=linea.begin(); it!=linea.end(); ++it) {
+	for (std::string::const_iterator it=linea.begin(); it!=linea.end(); ++it) {
 		if (*it == '(') cantOpenParentesis++;
 		if (*it == ')') cantCloseParentesis++;
 		if (cantOpenParentesis < cantCloseParentesis) {

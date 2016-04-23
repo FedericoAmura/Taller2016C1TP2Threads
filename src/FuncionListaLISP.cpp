@@ -12,7 +12,7 @@ FuncionListaLISP::FuncionListaLISP() {
 
 std::vector<std::string> FuncionListaLISP::resolver(
 		std::vector<std::string> args,
-		InterpreteLISP* interprete) {
+		const InterpreteLISP &interprete) {
 	return args;
 }
 

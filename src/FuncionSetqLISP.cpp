@@ -12,7 +12,7 @@ FuncionSetqLISP::FuncionSetqLISP() {
 
 std::vector<std::string> FuncionSetqLISP::resolver(
 		std::vector<std::string> args,
-		InterpreteLISP* interprete) {
+		const InterpreteLISP &interprete) {
 	std::string nombreVariable;
 
 	//el primer parametro no es algo evaluable
@@ -21,9 +21,9 @@ std::vector<std::string> FuncionSetqLISP::resolver(
 
 	std::string argumento = args.front();
 	std::vector<std::string> *valorVariable = new std::vector<std::string>();
-	*valorVariable = interprete->procesarComandoLISP(argumento);
+	*valorVariable = interprete.procesarComandoLISP(argumento);
 
-	VariableLISP *variable = interprete->conseguirVariable(nombreVariable);
+	VariableLISP *variable = interprete.conseguirVariable(nombreVariable);
 	if (variable == 0) {
 		//la variable no existe
 		variable = new VariableLISP(valorVariable);
@@ -32,7 +32,7 @@ std::vector<std::string> FuncionSetqLISP::resolver(
 		delete(variable->getVariable());
 		variable->setVariable(valorVariable);
 	}
-	interprete->agregarVariable(nombreVariable, variable);
+	interprete.agregarVariable(nombreVariable, variable);
 
 	std::vector<std::string> retorno;
 	return retorno;

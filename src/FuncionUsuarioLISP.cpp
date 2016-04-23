@@ -9,10 +9,11 @@
 #include <string>
 #include <vector>
 
-FuncionUsuarioLISP::FuncionUsuarioLISP(const std::string codigo) : codigo(codigo) {
+FuncionUsuarioLISP::FuncionUsuarioLISP(const std::string &codigo)
+	: codigo(codigo) {
 }
 
-std::string FuncionUsuarioLISP::reemplazarAmbiente(std::string ambiente) {
+std::string FuncionUsuarioLISP::reemplazarAmbiente(const std::string &ambiente){
 	std::string nuevoCodigo = codigo;
 	size_t index = 0;
 	while (true) {
@@ -28,11 +29,11 @@ std::string FuncionUsuarioLISP::reemplazarAmbiente(std::string ambiente) {
 
 std::vector<std::string> FuncionUsuarioLISP::resolver(
 		std::vector<std::string> args,
-		InterpreteLISP* interprete) {
+		const InterpreteLISP &interprete) {
 	std::vector<std::string> lista;
 	std::string ambiente = args.front();
 	std::string nuevoCodigo = FuncionUsuarioLISP::reemplazarAmbiente(ambiente);
-	lista = interprete->procesarComandoLISP(nuevoCodigo);
+	lista = interprete.procesarComandoLISP(nuevoCodigo);
 	return lista;
 }
 

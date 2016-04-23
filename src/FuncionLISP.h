@@ -20,7 +20,7 @@ public:
 	FuncionLISP();
 
 	virtual std::vector<std::string> resolver(std::vector<std::string> args,
-			InterpreteLISP* interprete) = 0;
+			const InterpreteLISP &interprete) = 0;
 
 	virtual ~FuncionLISP();
 };
