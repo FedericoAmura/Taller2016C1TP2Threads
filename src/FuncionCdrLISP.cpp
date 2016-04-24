@@ -16,11 +16,17 @@ FuncionCdrLISP::FuncionCdrLISP() {
 std::vector<std::string> FuncionCdrLISP::resolver(
 		std::vector<std::string> args,
 		const InterpreteLISP &interprete) {
-	std::vector<std::string> retorno = args;
-	do {	//Mientras el primer argumento sea un comando, lo resuelvo
+	std::vector<std::string> retorno;
+	if (args.size() == 1) {
+		retorno = interprete.procesarComandoLISP(args.front());
+	} else {
+		retorno = args;
+	}
+	//Mientras el primer argumento sea un comando, lo resuelvo
+	 while (!retorno.empty() && retorno.front().at(0) == '(') {
 		std::string primerArgumento = retorno.front();
 		retorno = interprete.procesarComandoLISP(primerArgumento);
-	} while (retorno.front().at(0) == '(');
+	}
 	if (!retorno.empty())	//saco el primero y que quede el resto para devolver
 		retorno.erase(retorno.begin());
 	return retorno;
