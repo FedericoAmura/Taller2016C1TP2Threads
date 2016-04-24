@@ -15,9 +15,11 @@ InterpreteLISP::InterpreteLISP(const std::string linea,
 		std::map<std::string, FuncionLISP*> *funcionesAmbiente)
 		: linea(linea), variablesAmbiente(variablesAmbiente),
 		  funcionesAmbiente(funcionesAmbiente) {
+	//Construimos el objeto
 }
 
 void InterpreteLISP::run() {
+	//Inicia la ejecucion en un nuevo hilo
 	procesarComandoLISP(linea);
 }
 
@@ -30,9 +32,10 @@ std::vector<std::string> InterpreteLISP::parseCommand(
 	it++;	//para salvarme del primer "("
 	for (; (*it!=' ') && (*it!=')'); ++it){
 		argumento.append(1, *it);
-	}
+	} //leemos toda la primera palabra, comando
 	comandoParseado.push_back(argumento);
 	argumento.clear();
+
 	int parentesisAbiertos = 1;
 	while (parentesisAbiertos != 0 && it!=comando.end()) {
 		if (*it==')') {
@@ -55,20 +58,22 @@ std::vector<std::string> InterpreteLISP::parseCommand(
 			argumento.append(1, *it);
 		}
 		++it;
-	}
+	} //vamos leyendo todas las palabras que quedan, argumentos
 	if (argumento.compare("") != 0) {
 		comandoParseado.push_back(argumento);
 	}
 	return comandoParseado;
 }
 
+//Ingresa un string que puede ser tanto un comando, una variable o un literal
+//por lo que se procesa y devuelve resuelto, si corresponde, en formato de lista
 std::vector<std::string> InterpreteLISP::procesarComandoLISP(
 		const std::string &input) const {
 	std::vector<std::string> comando;
 	std::string palabra;
 	if (input.empty()) return comando;
 	if (input.at(0) =='(') {
-		//el string ingresado es comando lisp
+		//el string ingresado es comando LISP
 		comando = parseCommand(input);
 
 		std::string nombreFuncion;
@@ -108,6 +113,8 @@ bool InterpreteLISP::esSync() const {
 }
 
 bool InterpreteLISP::lineaValida() const {
+	//Verifica que haya un numero identico de ambos parentesis
+	//y que esten en orden correcto
 	int cantOpenParentesis = 0;
 	int cantCloseParentesis = 0;
 	for (std::string::const_iterator it=linea.begin(); it!=linea.end(); ++it) {

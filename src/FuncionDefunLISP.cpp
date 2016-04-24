@@ -8,6 +8,9 @@
 #include "FuncionDefunLISP.h"
 #include "FuncionUsuarioLISP.h"
 
+#include <string>
+#include <vector>
+
 FuncionDefunLISP::FuncionDefunLISP() {
 }
 
@@ -27,9 +30,11 @@ std::vector<std::string> FuncionDefunLISP::resolver(
 
 	cuerpoFuncion = args.front();	//no puede ser algo que se evalue
 
+	//Genero puntero al nuevo functor y lo agrego al ambiente
 	FuncionLISP *funcion = new FuncionUsuarioLISP(cuerpoFuncion);
 	interprete.agregarFuncion(nombreFuncion, funcion);
 
+	//Devuelvo lista vacia
 	std::vector<std::string> retorno;
 	return retorno;
 }

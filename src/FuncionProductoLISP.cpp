@@ -7,6 +7,9 @@
 
 #include "FuncionProductoLISP.h"
 #include "numeroATexto.cpp"
+
+#include <string>
+#include <vector>
 #include <cstdlib>
 
 FuncionProductoLISP::FuncionProductoLISP() {

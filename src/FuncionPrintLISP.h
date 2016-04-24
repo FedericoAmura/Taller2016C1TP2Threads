@@ -25,8 +25,7 @@ public:
 	virtual ~FuncionPrintLISP();
 
 private:
-	std::vector<std::string> printRecursivo(
-			std::vector<std::string> args,
+	void printRecursivo(std::vector<std::string> args,
 			const InterpreteLISP &interprete);
 };
 

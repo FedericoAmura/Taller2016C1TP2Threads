@@ -7,6 +7,9 @@
 
 #include "FuncionSumaLISP.h"
 #include "numeroATexto.cpp"
+
+#include <string>
+#include <vector>
 #include <cstdlib>
 
 FuncionSumaLISP::FuncionSumaLISP() {

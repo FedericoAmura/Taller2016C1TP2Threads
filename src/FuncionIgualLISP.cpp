@@ -6,6 +6,9 @@
  */
 
 #include "FuncionIgualLISP.h"
+
+#include <string>
+#include <vector>
 #include <cstdlib>
 
 FuncionIgualLISP::FuncionIgualLISP() {
@@ -17,18 +20,20 @@ std::vector<std::string> FuncionIgualLISP::resolver(
 	std::vector<std::string> retorno;
 	std::vector<std::string> aux;
 	//primer numero
-	std::string primero = args.front();
+	std::string primerValor = args.front();
+	aux = interprete.procesarComandoLISP(primerValor);
+	primerValor = aux.front();
+
 	args.erase(args.begin());
-	aux = interprete.procesarComandoLISP(primero);
-	primero = aux.front();
 	//segundo numero
-	std::string segundo = args.front();
-	aux = interprete.procesarComandoLISP(segundo);
-	segundo = aux.front();
+	std::string segundoValor = args.front();
+	aux = interprete.procesarComandoLISP(segundoValor);
+	segundoValor = aux.front();
 
-	float primeroFloat = std::atof(primero.c_str());
-	float segundoFloat = std::atof(segundo.c_str());
+	float primeroFloat = std::atof(primerValor.c_str());
+	float segundoFloat = std::atof(segundoValor.c_str());
 
+	//Hago comparacion
 	if (primeroFloat == segundoFloat) {
 		std::string positivo = "1";
 		retorno.insert(retorno.begin(), positivo);

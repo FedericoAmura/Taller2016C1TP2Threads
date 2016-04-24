@@ -14,6 +14,7 @@
 #include <string>
 #include <vector>
 
+//Clase de funciones LISP definidas por el usuario mediante defun
 class FuncionUsuarioLISP : public FuncionLISP {
 private:
 	std::string codigo;

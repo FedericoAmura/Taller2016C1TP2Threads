@@ -15,6 +15,8 @@ class InterpreteLISP;	//referencias circulares
 
 #include "InterpreteLISP.h"
 
+//Funcion que compara dos numeros
+//Devuelve "1" si son iguales, lista vacia en otro caso
 class FuncionIgualLISP : public FuncionLISP {
 public:
 	FuncionIgualLISP();

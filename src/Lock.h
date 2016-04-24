@@ -10,6 +10,7 @@
 
 #include "Mutex.h"
 
+//clase para manejo automatico (por RAII) de un mutex
 class Lock {
 private:
 	Mutex &m;

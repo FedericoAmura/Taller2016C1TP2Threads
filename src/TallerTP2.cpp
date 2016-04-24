@@ -27,7 +27,7 @@ int main(int argc, char *argv[]) {
 	std::string linea;
 	AmbienteLISP lisp;
 
-	//leo cada linea y la proceso en lisp hasta EOF
+	//leo cada linea y la proceso en LISP hasta EOF
 	while (std::getline(std::cin, linea)) {
 		if (!linea.empty()) {
 			lineError = lisp.procesarLineaLISP(linea);

@@ -7,6 +7,9 @@
 
 #include "FuncionRestaLISP.h"
 #include "numeroATexto.cpp"
+
+#include <string>
+#include <vector>
 #include <cstdlib>
 
 FuncionRestaLISP::FuncionRestaLISP() {
@@ -26,6 +29,8 @@ std::vector<std::string> FuncionRestaLISP::resolver(
 					subArgs_iter != subArgs.end(); subArgs_iter++) {
 				aux = atoi((*subArgs_iter).c_str());
 				if (args_iter == args.begin()) {
+					//Si el primer argumento es una lista, sumo esos valores
+					//(Se supone el primer valor positivo y el resto negativos)
 					valorFinal += aux;
 				} else {
 					valorFinal -= aux;

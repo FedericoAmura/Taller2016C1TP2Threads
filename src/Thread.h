@@ -10,11 +10,12 @@
 
 #include <pthread.h>
 
+//Clase para correr metodos de objetos en hilos independientes
 class Thread {
 private:
 	pthread_t thread;
 
-	static void *runner(void *data){
+	static void *runner(void *data) {
         Thread *self = (Thread*)data;
         self->run();
         return NULL;
@@ -23,10 +24,13 @@ private:
 public:
 	Thread();
 
+	//Metodo que arranca la ejecucion de run() en un hilo independiente
 	void start();
 
+	//Join al hilo, para esperar a que termine
 	void join();
 
+	//Metodo virtual, la clase hija debe implementar para correrlo en otro hilo
 	virtual void run() = 0;
 
 	virtual ~Thread();

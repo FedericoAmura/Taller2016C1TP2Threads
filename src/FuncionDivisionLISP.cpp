@@ -7,6 +7,9 @@
 
 #include "FuncionDivisionLISP.h"
 #include "numeroATexto.cpp"
+
+#include <string>
+#include <vector>
 #include <cstdlib>
 
 FuncionDivisionLISP::FuncionDivisionLISP() {
@@ -26,6 +29,8 @@ std::vector<std::string> FuncionDivisionLISP::resolver(
 					subArgs_iter != subArgs.end(); subArgs_iter++) {
 				aux = std::atof((*subArgs_iter).c_str());
 				if (args_iter == args.begin()) {
+					//Si el primer argumento es una lista multiplico sus valores
+					//(Se supone dividir el primer argumento por el resto)
 					valorFinal *= aux;
 				} else {
 					valorFinal /= aux;

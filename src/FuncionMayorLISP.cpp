@@ -6,6 +6,9 @@
  */
 
 #include "FuncionMayorLISP.h"
+
+#include <string>
+#include <vector>
 #include <cstdlib>
 
 FuncionMayorLISP::FuncionMayorLISP() {
@@ -30,7 +33,9 @@ std::vector<std::string> FuncionMayorLISP::resolver(
 		float mayorFloat = std::atof(primerValor.c_str());
 		float menorFloat = std::atof(segundoValor.c_str());
 
+		//Hago comparacion
 		if (mayorFloat > menorFloat) {
+			//Devuelvo un "1" si es verdadero, convencion
 			std::string positivo = "1";
 			retorno.insert(retorno.begin(), positivo);
 		}

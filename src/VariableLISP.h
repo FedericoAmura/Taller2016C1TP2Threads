@@ -14,23 +14,20 @@
 #include "Mutex.h"
 #include "Lock.h"
 
-
+//Clase de encapsulamiento de variables LISP protegidas para multihilos
 class VariableLISP {
 private:
-	Mutex m; //mutex para no permitir que se superpongan lecturas/escrituras
+	//mutex para no permitir que se superpongan lecturas/escrituras
+	Mutex m;
 	std::vector<std::string>* variable;
 
 public:
-	//constructor de los objetos variables
 	explicit VariableLISP(std::vector<std::string> *valor);
 
-	//getter
 	std::vector<std::string>* getVariable();
 
-	//setter
 	void setVariable(std::vector<std::string> *valor);
 
-	//destructor
 	virtual ~VariableLISP();
 };
 

@@ -15,6 +15,8 @@ class InterpreteLISP;	//referencias circulares
 
 #include "InterpreteLISP.h"
 
+//Funcion que compara dos numeros
+//Devuelve "1" si el primero es menor, lista vacia en otro caso
 class FuncionMenorLISP : public FuncionLISP {
 public:
 	FuncionMenorLISP();

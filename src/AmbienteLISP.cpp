@@ -28,9 +28,10 @@
 #include <map>
 
 AmbienteLISP::AmbienteLISP() {
+	//Inicializo indices de lineas procesadas y sincronizadas
 	i = 0;
 	j = 0;
-	//agrego funciones nativas
+	//Agrego funciones nativas
 	funcionesAmbiente["+"] = (FuncionLISP*) new FuncionSumaLISP();
 	funcionesAmbiente["-"] = (FuncionLISP*) new FuncionRestaLISP();
 	funcionesAmbiente["*"] = (FuncionLISP*) new FuncionProductoLISP();
@@ -69,15 +70,18 @@ std::string AmbienteLISP::procesarLineaLISP(const std::string &linea) {
 }
 
 AmbienteLISP::~AmbienteLISP() {
+	//Voy esperando y destruyendo los hilos de las lineas ingresadas
 	for (int k = 0; k < i; k++) {
 		lines[k]->join();
 		delete lines[k];
 	}
+	//Destruyo los functors de las funciones nativas
 	for (std::map<std::string, FuncionLISP*>::iterator func_iter =
 			funcionesAmbiente.begin(); func_iter != funcionesAmbiente.end();
 			func_iter++) {
 		delete ((*func_iter).second);
 	}
+	//Destruyo los objetos de variables guardadas
 	for (std::map<std::string, VariableLISP*>::iterator var_iter =
 			variablesAmbiente.begin(); var_iter != variablesAmbiente.end();
 			var_iter++) {

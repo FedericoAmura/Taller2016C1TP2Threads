@@ -15,6 +15,8 @@ class InterpreteLISP;	//referencias circulares
 
 #include "InterpreteLISP.h"
 
+//Clase abstracta de funciones LISP
+//Las hijas deben tener un metodo "resolver" segun su funcionalidad
 class FuncionLISP {
 public:
 	FuncionLISP();

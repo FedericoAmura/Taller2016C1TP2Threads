@@ -17,8 +17,10 @@ pthread_mutex_t mutex;
 public:
 	Mutex();
 
+	//para trabar un mutex
 	void lock();
 
+	//para destrabar un mutex
 	void unlock();
 
 	~Mutex();
